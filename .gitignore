@@ -216,3 +216,21 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Dataset binaries: keep metadata in Git, store image binaries separately.
+data/raw/**
+data/interim/**
+data/processed/**
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# Model and vector index artifacts
+models/**
+indexes/**
+*.faiss
+*.index
+
+# Local experiment outputs
+outputs/**
+reports/generated/**

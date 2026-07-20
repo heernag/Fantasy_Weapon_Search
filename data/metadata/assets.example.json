@@ -1,0 +1,23 @@
+{
+  "asset_id": "weapon_0001",
+  "image_path": "data/processed/weapon_0001.png",
+  "name": "Flame Greatsword",
+  "category": "sword",
+  "subtype": "greatsword",
+  "colors": ["red", "black"],
+  "elements": ["fire"],
+  "style": ["dark_fantasy", "medieval"],
+  "visual_style": "illustration",
+  "handedness": "two_handed",
+  "caption_ko": "붉은 불꽃이 감도는 검은색 양손 대검",
+  "caption_en": "A black two-handed greatsword surrounded by red flames",
+  "source_platform": "OpenGameArt",
+  "source_url": "https://opengameart.org/example",
+  "creator": "example_creator",
+  "license": "CC-BY-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_checked_at": "2026-07-20",
+  "tagging_method": "human_verified",
+  "review_status": "approved",
+  "split": "train"
+}

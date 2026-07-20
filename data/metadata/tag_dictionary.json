@@ -1,0 +1,76 @@
+{
+  "category": [
+    "sword",
+    "axe",
+    "spear",
+    "bow",
+    "staff",
+    "shield"
+  ],
+  "subtype": [
+    "dagger",
+    "shortsword",
+    "longsword",
+    "greatsword",
+    "battleaxe",
+    "halberd",
+    "spear",
+    "longbow",
+    "shortbow",
+    "magic_staff",
+    "round_shield",
+    "tower_shield"
+  ],
+  "colors": [
+    "gold",
+    "silver",
+    "black",
+    "white",
+    "red",
+    "blue",
+    "green",
+    "purple",
+    "brown",
+    "gray"
+  ],
+  "elements": [
+    "fire",
+    "ice",
+    "lightning",
+    "poison",
+    "dark",
+    "holy"
+  ],
+  "style": [
+    "medieval",
+    "gothic",
+    "elf",
+    "orc",
+    "magic",
+    "dark_fantasy"
+  ],
+  "visual_style": [
+    "pixel_art",
+    "illustration",
+    "icon"
+  ],
+  "handedness": [
+    "one_handed",
+    "two_handed"
+  ],
+  "split": [
+    "train",
+    "validation",
+    "test"
+  ],
+  "tagging_method": [
+    "source_metadata",
+    "auto_generated",
+    "human_verified"
+  ],
+  "review_status": [
+    "pending",
+    "approved",
+    "rejected"
+  ]
+}
