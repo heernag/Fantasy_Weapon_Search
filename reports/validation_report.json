@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-08-07T15:18:31+09:00",
+  "project_root": "D:\\Fantasy_Weapon_Search",
+  "output_directory": "D:\\Fantasy_Weapon_Search\\exports\\final_search_dataset_20260807",
+  "source_files": {
+    "assets": "D:\\Fantasy_Weapon_Search\\data\\metadata\\assets.jsonl",
+    "reviewed_tags": "D:\\Fantasy_Weapon_Search\\data\\metadata\\tag_null_review_pretty.json",
+    "provenance": "D:\\Fantasy_Weapon_Search\\data\\metadata\\asset_sources.jsonl"
+  },
+  "output_files": [
+    "D:\\Fantasy_Weapon_Search\\exports\\final_search_dataset_20260807\\final_search_assets.jsonl",
+    "D:\\Fantasy_Weapon_Search\\exports\\final_search_dataset_20260807\\final_search_assets_pretty.json",
+    "D:\\Fantasy_Weapon_Search\\exports\\final_search_dataset_20260807\\validation_report.json",
+    "D:\\Fantasy_Weapon_Search\\exports\\final_search_dataset_20260807\\README.md"
+  ],
+  "summary": {
+    "asset_count": 1113,
+    "unique_asset_id_count": 1113,
+    "confirmed_manual_count": 1113,
+    "pixel_art_count": 1113,
+    "included_in_baseline_count": 1113,
+    "verified_license_count": 1113,
+    "processed_files_found": 1113,
+    "mapping_status_counts": {
+      "ambiguous_archive": 161,
+      "manifest_matched": 952
+    },
+    "duplicate_asset_id_count": 0,
+    "validation_passed": true
+  },
+  "human_readable_json": {
+    "file": "D:\\Fantasy_Weapon_Search\\exports\\final_search_dataset_20260807\\final_search_assets_pretty.json",
+    "record_count": 1113,
+    "null_values_removed": 6648,
+    "null_values_remaining": 0
+  }
+}

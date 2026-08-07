@@ -1,0 +1,324 @@
+{
+  "generated_at": "2026-08-07T18:03:33+09:00",
+  "package_root": "D:\\Last_Team_Project_Fantasy_Weapon_Search",
+  "validation_passed": true,
+  "error_count": 0,
+  "warning_count": 0,
+  "summary": {
+    "asset_count": 1113,
+    "image_count": 1113,
+    "source_record_count": 1113,
+    "verified_license_count": 1113,
+    "source_mapping_status": {
+      "ambiguous_archive": 161,
+      "manifest_matched": 952
+    },
+    "split_counts": {
+      "train": 886,
+      "validation": 115,
+      "test": 112
+    },
+    "query_count": 160,
+    "concept_count": 80,
+    "style_distribution": {
+      "dark_fantasy": 40,
+      "eastern": 20,
+      "fantasy": 184,
+      "holy_fantasy": 52,
+      "medieval": 801,
+      "modern": 3,
+      "nature_fantasy": 13
+    },
+    "handedness_distribution": {
+      "not_applicable": 29,
+      "one_handed": 829,
+      "two_handed": 255
+    },
+    "category_distribution": {
+      "arrow": 29,
+      "axe": 155,
+      "bow": 60,
+      "crossbow": 14,
+      "dagger": 28,
+      "gun": 3,
+      "hammer": 6,
+      "mace": 8,
+      "shield": 368,
+      "shuriken": 7,
+      "spear": 25,
+      "staff": 18,
+      "sword": 392
+    }
+  },
+  "checks": [
+    {
+      "code": "required_files",
+      "label": "필수 파일이 모두 존재함",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "asset_count",
+      "label": "전체 에셋 수가 예상값과 일치함",
+      "passed": true,
+      "severity": "error",
+      "details": {
+        "expected": 1113,
+        "actual": 1113
+      }
+    },
+    {
+      "code": "unique_asset_ids",
+      "label": "asset_id가 모두 고유함",
+      "passed": true,
+      "severity": "error",
+      "details": {
+        "duplicates": []
+      }
+    },
+    {
+      "code": "required_metadata",
+      "label": "검색에 필요한 필수 메타데이터가 채워짐",
+      "passed": true,
+      "severity": "error",
+      "details": {}
+    },
+    {
+      "code": "pretty_count",
+      "label": "사람용 JSON과 기본 메타데이터의 개수가 같음",
+      "passed": true,
+      "severity": "error",
+      "details": {
+        "main": 1113,
+        "pretty": 1113
+      }
+    },
+    {
+      "code": "pretty_no_nulls",
+      "label": "사람용 JSON에 null 값이 없음",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "code": "pretty_matches_main",
+      "label": "사람용 JSON 내용이 기본 메타데이터와 일치함",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "code": "utf8_text",
+      "label": "한글과 영문 텍스트에 깨진 문자가 없음",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "code": "handedness_values",
+      "label": "handedness 값이 최종 허용 체계에 맞음",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "shield_handedness",
+      "label": "모든 방패가 one_handed로 표시됨",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "style_values",
+      "label": "style 값이 최종 허용 체계에 맞음",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "image_count",
+      "label": "PNG 이미지 수가 메타데이터 수와 일치함",
+      "passed": true,
+      "severity": "error",
+      "details": {
+        "metadata": 1113,
+        "images": 1113
+      }
+    },
+    {
+      "code": "missing_processed_images",
+      "label": "모든 processed_file 이미지가 존재함",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "orphan_images",
+      "label": "메타데이터에 없는 고아 이미지가 없음",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "duplicate_hashes",
+      "label": "동일 SHA-256 이미지가 없음",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "duplicate_flags",
+      "label": "중복으로 표시된 잔여 에셋이 없음",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "source_coverage",
+      "label": "출처·라이선스 데이터가 모든 에셋을 덮음",
+      "passed": true,
+      "severity": "error",
+      "details": {
+        "missing": [],
+        "extra": []
+      }
+    },
+    {
+      "code": "source_consistency",
+      "label": "메타데이터와 출처 원장의 URL·라이선스가 일치함",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "licenses_verified",
+      "label": "모든 라이선스 상태가 verified임",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "split_counts",
+      "label": "train/validation/test 개수가 예상값과 일치함",
+      "passed": true,
+      "severity": "error",
+      "details": {
+        "expected": {
+          "train": 886,
+          "validation": 115,
+          "test": 112
+        },
+        "actual": {
+          "train": 886,
+          "validation": 115,
+          "test": 112
+        }
+      }
+    },
+    {
+      "code": "split_overlap",
+      "label": "split 사이에 같은 asset_id가 겹치지 않음",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "split_coverage",
+      "label": "split 합집합이 전체 에셋과 정확히 일치함",
+      "passed": true,
+      "severity": "error",
+      "details": {
+        "missing": [],
+        "extra": []
+      }
+    },
+    {
+      "code": "split_metadata_sync",
+      "label": "split 메타데이터가 최종 메타데이터와 동기화됨",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "split_manifest",
+      "label": "split_manifest가 실제 split과 일치함",
+      "passed": true,
+      "severity": "error",
+      "details": {
+        "bad": [],
+        "coverage": 1113
+      }
+    },
+    {
+      "code": "similarity_group_leakage",
+      "label": "유사 이미지 그룹이 여러 split에 섞이지 않음",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "evaluation_count",
+      "label": "평가 질의와 정답 수가 예상값과 일치함",
+      "passed": true,
+      "severity": "error",
+      "details": {
+        "expected": 160,
+        "queries": 160,
+        "ground_truth": 160
+      }
+    },
+    {
+      "code": "unique_query_ids",
+      "label": "평가 query_id가 모두 고유함",
+      "passed": true,
+      "severity": "error"
+    },
+    {
+      "code": "query_ground_truth_match",
+      "label": "모든 평가 질의에 정확히 대응하는 정답이 있음",
+      "passed": true,
+      "severity": "error",
+      "details": {
+        "missing": [],
+        "extra": []
+      }
+    },
+    {
+      "code": "nonempty_answers",
+      "label": "모든 평가 질의에 하나 이상의 정답이 있음",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "answers_outside_test",
+      "label": "모든 평가 정답이 test split 안에 있음",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "bilingual_pairs",
+      "label": "각 평가 개념에 한·영 질의 쌍과 동일한 정답이 있음",
+      "passed": true,
+      "severity": "error",
+      "details": []
+    },
+    {
+      "code": "evaluation_metadata",
+      "label": "평가 요약과 결과 템플릿의 질의 수가 최신값임",
+      "passed": true,
+      "severity": "error",
+      "details": {
+        "summary": 160,
+        "template": 160
+      }
+    },
+    {
+      "code": "evaluation_utf8",
+      "label": "평가 질의에 깨진 문자가 없음",
+      "passed": true,
+      "severity": "error"
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

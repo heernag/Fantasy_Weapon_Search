@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-08-07T16:00:24+09:00",
+  "seed": 20260807,
+  "split_ratios": {
+    "train": 0.8,
+    "validation": 0.1,
+    "test": 0.1
+  },
+  "similarity_hash_hamming_threshold": 2,
+  "total_assets": 1113,
+  "similarity_groups": 824,
+  "split_counts": {
+    "train": 886,
+    "validation": 115,
+    "test": 112
+  },
+  "changed_records_by_file": {
+    "tag_null_review_pretty.json": 1,
+    "tag_null_review.jsonl": 1,
+    "tag_candidates.jsonl": 1,
+    "final_search_assets.jsonl": 1,
+    "final_search_assets_pretty.json": 1
+  },
+  "materials_after": {
+    "steel": 833,
+    "wood": 693,
+    "bronze": 234,
+    "leather": 168,
+    "unknown": 134,
+    "gold": 134,
+    "crystal": 114,
+    "cloth": 39,
+    "bone": 22,
+    "obsidian": 16,
+    "silver": 15,
+    "stone": 11,
+    "chain": 1,
+    "vine": 1
+  },
+  "category_distribution_by_split": {
+    "train": {
+      "sword": 314,
+      "shield": 294,
+      "axe": 124,
+      "bow": 48,
+      "arrow": 23,
+      "dagger": 22,
+      "spear": 20,
+      "staff": 14,
+      "crossbow": 11,
+      "mace": 6,
+      "shuriken": 5,
+      "hammer": 4,
+      "gun": 1
+    },
+    "validation": {
+      "sword": 39,
+      "shield": 37,
+      "axe": 16,
+      "bow": 6,
+      "arrow": 3,
+      "dagger": 3,
+      "spear": 3,
+      "crossbow": 2,
+      "staff": 2,
+      "gun": 1,
+      "hammer": 1,
+      "mace": 1,
+      "shuriken": 1
+    },
+    "test": {
+      "sword": 39,
+      "shield": 37,
+      "axe": 15,
+      "bow": 6,
+      "arrow": 3,
+      "dagger": 3,
+      "spear": 2,
+      "staff": 2,
+      "crossbow": 1,
+      "gun": 1,
+      "hammer": 1,
+      "mace": 1,
+      "shuriken": 1
+    }
+  },
+  "backup_dir": "D:\\Fantasy_Weapon_Search\\data\\metadata\\history\\normalize_iron_to_steel_20260807_160024"
+}
