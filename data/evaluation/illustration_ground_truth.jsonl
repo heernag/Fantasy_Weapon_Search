@@ -72,3 +72,29 @@
 {"query_id": "illustration_en_036", "concept_id": "illustration_concept_036", "candidate_split": "test", "relevance": "binary", "relevant_asset_ids": ["asset_001572", "asset_001579", "asset_001590", "asset_001592", "asset_001596", "asset_001607", "asset_001618", "asset_001621", "asset_001642", "asset_001669", "asset_001674", "asset_001675", "asset_001676", "asset_001726", "asset_001755", "asset_001765", "asset_001781", "asset_001834", "asset_001835"]}
 {"query_id": "illustration_ko_037", "concept_id": "illustration_concept_037", "candidate_split": "test", "relevance": "binary", "relevant_asset_ids": ["asset_001581", "asset_001725", "asset_001773", "asset_001778", "asset_001787", "asset_001791", "asset_001816", "asset_001817"]}
 {"query_id": "illustration_en_037", "concept_id": "illustration_concept_037", "candidate_split": "test", "relevance": "binary", "relevant_asset_ids": ["asset_001581", "asset_001725", "asset_001773", "asset_001778", "asset_001787", "asset_001791", "asset_001816", "asset_001817"]}
+{"query_id":"illustration_ko_038","concept_id":"illustration_concept_038","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001781"]}
+{"query_id":"illustration_en_038","concept_id":"illustration_concept_038","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001781"]}
+{"query_id":"illustration_ko_039","concept_id":"illustration_concept_039","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001765"]}
+{"query_id":"illustration_en_039","concept_id":"illustration_concept_039","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001765"]}
+{"query_id":"illustration_ko_040","concept_id":"illustration_concept_040","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001787","asset_001834","asset_001835"]}
+{"query_id":"illustration_en_040","concept_id":"illustration_concept_040","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001787","asset_001834","asset_001835"]}
+{"query_id":"illustration_ko_041","concept_id":"illustration_concept_041","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001674","asset_001675","asset_001676"]}
+{"query_id":"illustration_en_041","concept_id":"illustration_concept_041","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001674","asset_001675","asset_001676"]}
+{"query_id":"illustration_ko_042","concept_id":"illustration_concept_042","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001669"]}
+{"query_id":"illustration_en_042","concept_id":"illustration_concept_042","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001669"]}
+{"query_id":"illustration_ko_043","concept_id":"illustration_concept_043","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001726"]}
+{"query_id":"illustration_en_043","concept_id":"illustration_concept_043","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001726"]}
+{"query_id":"illustration_ko_044","concept_id":"illustration_concept_044","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001778"]}
+{"query_id":"illustration_en_044","concept_id":"illustration_concept_044","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001778"]}
+{"query_id":"illustration_ko_045","concept_id":"illustration_concept_045","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001607","asset_001781"]}
+{"query_id":"illustration_en_045","concept_id":"illustration_concept_045","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001607","asset_001781"]}
+{"query_id":"illustration_ko_046","concept_id":"illustration_concept_046","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001669","asset_001725","asset_001726"]}
+{"query_id":"illustration_en_046","concept_id":"illustration_concept_046","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001669","asset_001725","asset_001726"]}
+{"query_id":"illustration_ko_047","concept_id":"illustration_concept_047","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001572","asset_001579","asset_001581"]}
+{"query_id":"illustration_en_047","concept_id":"illustration_concept_047","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001572","asset_001579","asset_001581"]}
+{"query_id":"illustration_ko_048","concept_id":"illustration_concept_048","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001572","asset_001579","asset_001581","asset_001674","asset_001778"]}
+{"query_id":"illustration_en_048","concept_id":"illustration_concept_048","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001572","asset_001579","asset_001581","asset_001674","asset_001778"]}
+{"query_id":"illustration_ko_049","concept_id":"illustration_concept_049","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001675","asset_001791"]}
+{"query_id":"illustration_en_049","concept_id":"illustration_concept_049","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001675","asset_001791"]}
+{"query_id":"illustration_ko_050","concept_id":"illustration_concept_050","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001581","asset_001725","asset_001773","asset_001778","asset_001787","asset_001791","asset_001816","asset_001817"]}
+{"query_id":"illustration_en_050","concept_id":"illustration_concept_050","candidate_split":"test","relevance":"binary","relevant_asset_ids":["asset_001581","asset_001725","asset_001773","asset_001778","asset_001787","asset_001791","asset_001816","asset_001817"]}
