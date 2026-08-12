@@ -1,0 +1,10 @@
+{
+  "total": 284,
+  "counts": {
+    "train": 230,
+    "validation": 27,
+    "test": 27
+  },
+  "variant_groups": 232,
+  "group_leaks": 0
+}
