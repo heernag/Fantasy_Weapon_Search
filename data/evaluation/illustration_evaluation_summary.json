@@ -20,7 +20,7 @@
   "ground_truth": {
     "relevance": "binary",
     "minimum_relevant_assets": 1,
-    "maximum_relevant_assets": 26,
-    "average_relevant_assets": 5.514
+    "maximum_relevant_assets": 36,
+    "average_relevant_assets": 5.84
   }
 }

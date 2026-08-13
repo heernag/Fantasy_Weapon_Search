@@ -23,8 +23,8 @@
   "ground_truth": {
     "relevance": "binary",
     "minimum_relevant_assets": 1,
-    "maximum_relevant_assets": 66,
-    "average_relevant_assets": 7.037
+    "maximum_relevant_assets": 65,
+    "average_relevant_assets": 6.938
   },
   "replaced_concepts": [
     "concept_032",

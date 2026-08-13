@@ -1,3 +1,5 @@
+> **과거 작업 기록**: 이 문서는 당시 후보 선별·감사 시점의 결과입니다. 현재 최종 수치와 릴리스 판정은 `reports/FINAL_VALIDATION_REPORT_KO.md` 및 `data/metadata/final_manifest.json`을 기준으로 확인하세요.
+
 # 픽셀아트 스타일 세부 분류 감사 보고서
 
 ## 검사 대상

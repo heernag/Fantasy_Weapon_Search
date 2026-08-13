@@ -95,5 +95,13 @@
     "legendary": 178,
     "common": 784
   },
-  "notes": "Refreshed from current pixel_art metadata and split JSONL files; rendered_icon and illustration records are excluded."
+  "notes": "Refreshed from current pixel_art metadata and split JSONL files; rendered_icon and illustration records are excluded.",
+  "counts": {
+    "train": 772,
+    "validation": 94,
+    "test": 91
+  },
+  "total": 957,
+  "overlap_count": 0,
+  "source_metadata": "../../final_search_assets_pretty.json"
 }
