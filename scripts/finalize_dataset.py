@@ -141,10 +141,12 @@ def refresh_evaluation_summary(
 def refresh_evaluation_summaries() -> dict[str, dict[str, Any]]:
     evaluation = ROOT / "data/evaluation"
     pixel_test_count = len(read_jsonl(SPLIT_DIRECTORIES["pixel_art"] / "test.jsonl"))
+    pixel_validation_count = len(read_jsonl(SPLIT_DIRECTORIES["pixel_art"] / "validation.jsonl"))
     illustration_test_count = len(read_jsonl(SPLIT_DIRECTORIES["illustration"] / "test.jsonl"))
 
     text_queries = read_jsonl(evaluation / "evaluation_queries.jsonl")
     multimodal_queries = read_jsonl(evaluation / "multimodal_queries.jsonl")
+    multimodal_validation_queries = read_jsonl(evaluation / "multimodal_validation_queries.jsonl")
     illustration_queries = read_jsonl(evaluation / "illustration_evaluation_queries.jsonl")
     illustration_languages = {
         "ko": sum(row.get("language") == "ko" for row in illustration_queries),
@@ -163,6 +165,17 @@ def refresh_evaluation_summaries() -> dict[str, dict[str, Any]]:
             evaluation / "multimodal_ground_truth.jsonl",
             candidate_count=pixel_test_count,
             query_count=len(multimodal_queries),
+        ),
+        "multimodal_validation": refresh_evaluation_summary(
+            evaluation / "multimodal_validation_evaluation_summary.json",
+            evaluation / "multimodal_validation_ground_truth.jsonl",
+            candidate_count=pixel_validation_count,
+            query_count=len(multimodal_validation_queries),
+            concept_count=len({row["concept_id"] for row in multimodal_validation_queries}),
+            language_counts={
+                "ko": sum(row.get("language") == "ko" for row in multimodal_validation_queries),
+                "en": sum(row.get("language") == "en" for row in multimodal_validation_queries),
+            },
         ),
         "illustration": refresh_evaluation_summary(
             evaluation / "illustration_evaluation_summary.json",
@@ -242,10 +255,14 @@ def sync_handoff(meta: list[dict[str, Any]]) -> None:
         "ground_truth.jsonl",
         "multimodal_queries.jsonl",
         "multimodal_ground_truth.jsonl",
+        "multimodal_validation_queries.jsonl",
+        "multimodal_validation_ground_truth.jsonl",
         "illustration_evaluation_queries.jsonl",
         "illustration_ground_truth.jsonl",
         "evaluation_summary.json",
         "multimodal_evaluation_summary.json",
+        "multimodal_validation_evaluation_summary.json",
+        "MULTIMODAL_VALIDATION_EVALUATION_GUIDE_KO.md",
         "illustration_evaluation_summary.json",
     ):
         shutil.copy2(evaluation / name, handoff / "evaluation" / name)
