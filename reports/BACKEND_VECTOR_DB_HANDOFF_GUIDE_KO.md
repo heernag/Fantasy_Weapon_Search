@@ -90,7 +90,7 @@ API source = metadata.source_url
 - 이미지+문장 검색: `multimodal_queries.jsonl`, `multimodal_ground_truth.jsonl`
 - 일러스트 검색: `illustration_evaluation_queries.jsonl`, `illustration_ground_truth.jsonl`
 
-정답 ID는 질의 파일이 아니라 ground-truth 파일에서 읽는다. 현재 행 수는 각각 텍스트 160개, 멀티모달 80개, 일러스트 74개다.
+정답 ID는 질의 파일이 아니라 ground-truth 파일에서 읽는다. 현재 행 수는 각각 텍스트 160개, 멀티모달 80개, 일러스트 100개다.
 
 측정 항목:
 

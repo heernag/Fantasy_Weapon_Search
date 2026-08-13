@@ -1,0 +1,99 @@
+{
+  "generated_at": "2026-08-11T17:39:50+09:00",
+  "seed": 20260807,
+  "split_ratios": {
+    "train": 0.8,
+    "validation": 0.1,
+    "test": 0.1
+  },
+  "similarity_hash_hamming_threshold": 2,
+  "total_assets": 962,
+  "similarity_groups": 887,
+  "split_counts": {
+    "train": 776,
+    "validation": 94,
+    "test": 92
+  },
+  "visual_group_by_split": {
+    "train": {
+      "pixel_art": 776
+    },
+    "validation": {
+      "pixel_art": 94
+    },
+    "test": {
+      "pixel_art": 92
+    }
+  },
+  "materials_after": {
+    "wood": 691,
+    "steel": 806,
+    "crystal": 114,
+    "unknown": 14,
+    "bronze": 234,
+    "gold": 134,
+    "leather": 165,
+    "cloth": 39,
+    "bone": 22,
+    "stone": 11,
+    "chain": 1,
+    "obsidian": 16,
+    "silver": 15,
+    "vine": 1
+  },
+  "category_distribution_by_split": {
+    "train": {
+      "arrow": 23,
+      "bow": 48,
+      "dagger": 22,
+      "sword": 313,
+      "axe": 124,
+      "gun": 1,
+      "mace": 6,
+      "staff": 14,
+      "spear": 20,
+      "hammer": 4,
+      "shuriken": 5,
+      "crossbow": 11,
+      "shield": 185
+    },
+    "validation": {
+      "arrow": 3,
+      "axe": 16,
+      "bow": 6,
+      "dagger": 3,
+      "gun": 1,
+      "hammer": 1,
+      "mace": 1,
+      "spear": 3,
+      "staff": 2,
+      "sword": 39,
+      "shuriken": 1,
+      "crossbow": 2,
+      "shield": 16
+    },
+    "test": {
+      "arrow": 3,
+      "sword": 39,
+      "axe": 15,
+      "bow": 6,
+      "dagger": 3,
+      "hammer": 1,
+      "gun": 1,
+      "mace": 1,
+      "staff": 2,
+      "spear": 2,
+      "crossbow": 1,
+      "shuriken": 1,
+      "shield": 17
+    }
+  },
+  "source_license_distribution": {
+    "CC0": 962
+  },
+  "grade_distribution": {
+    "legendary": 178,
+    "common": 784
+  },
+  "notes": "Refreshed from current pixel_art metadata and split JSONL files; rendered_icon and illustration records are excluded."
+}

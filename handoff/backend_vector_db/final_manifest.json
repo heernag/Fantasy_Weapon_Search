@@ -1,0 +1,100 @@
+{
+  "status": "final",
+  "version": "final-2026-08-12",
+  "frozen_at": "2026-08-12T00:00:00+09:00",
+  "source_metadata": {
+    "path": "data/metadata/final_search_assets_pretty.json",
+    "sha256": "b1072b6b08f4357bc8c337e92cc2e03e56fc98a8e1fe764b4aece752fb8af495",
+    "asset_count": 1391
+  },
+  "style_counts": {
+    "pixel_art": 957,
+    "illustration": 284,
+    "rendered_icon": 150
+  },
+  "splits": {
+    "pixel_art": {
+      "counts": {
+        "train": 772,
+        "validation": 94,
+        "test": 91
+      },
+      "total": 957,
+      "files": {
+        "train": {
+          "count": 772,
+          "sha256": "347ed2943d980620b061eb7421f525826ceb7f2056f87d651b67b99dda36f82c",
+          "path": "data/splits/train.jsonl"
+        },
+        "validation": {
+          "count": 94,
+          "sha256": "3316c1914c0fa767861f21bbc412b96570cfe23be802a407d91622147b779255",
+          "path": "data/splits/validation.jsonl"
+        },
+        "test": {
+          "count": 91,
+          "sha256": "d25cc76ff7ca7da43a2427a368c0b2d61ae17589695d5a22d3c97e6591f0c13f",
+          "path": "data/splits/test.jsonl"
+        }
+      }
+    },
+    "illustration": {
+      "counts": {
+        "train": 230,
+        "validation": 27,
+        "test": 27
+      },
+      "total": 284,
+      "files": {
+        "train": {
+          "count": 230,
+          "sha256": "3f2a43253e45b08175703ef532eb5bd3d6d0b94778f5129b672a9012e1eaaf44",
+          "path": "data/splits/illustration/train.jsonl"
+        },
+        "validation": {
+          "count": 27,
+          "sha256": "e125609f8a1c06b6fe06f1095688959fad3697747579739b0c2beb095d9c290b",
+          "path": "data/splits/illustration/validation.jsonl"
+        },
+        "test": {
+          "count": 27,
+          "sha256": "275ddd23c46ce4ddade3346ba8a2521abff42e739e3b9edab0eaeba76c7446d5",
+          "path": "data/splits/illustration/test.jsonl"
+        }
+      }
+    },
+    "rendered_icon": {
+      "counts": {
+        "train": 120,
+        "validation": 15,
+        "test": 15
+      },
+      "total": 150,
+      "files": {
+        "train": {
+          "count": 120,
+          "sha256": "6f0b493fe1bdb4db12b00104be3c61707af529341bf3f6ff267acf286fb5499f",
+          "path": "data/splits/rendered_icon/train.jsonl"
+        },
+        "validation": {
+          "count": 15,
+          "sha256": "af68db138a048dc037798b07a6f21884db81de9fa7a7fc632a583b16e126aa34",
+          "path": "data/splits/rendered_icon/validation.jsonl"
+        },
+        "test": {
+          "count": 15,
+          "sha256": "4b79d451ba2adf093e347a6c3719c8a783f66c91ed552290502ccb10e2d744ed",
+          "path": "data/splits/rendered_icon/test.jsonl"
+        }
+      }
+    }
+  },
+  "validation": {
+    "metadata_ids_unique": true,
+    "split_union_matches_metadata": true,
+    "cross_split_overlap_count": 0,
+    "korean_encoding_validated": true,
+    "image_links_validated": true
+  },
+  "next_consumer": "CLIP embedding generation and Vector DB ingestion"
+}

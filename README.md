@@ -1,43 +1,53 @@
-# 판타지 무기 멀티모달 검색용 최종 데이터 패키지
+# 판타지 무기 멀티모달 검색 데이터셋
 
-이 폴더에는 검수가 끝난 픽셀아트 판타지 무기 에셋 1,113개와 검색·학습·평가에 필요한 최종 자료만 정리되어 있습니다.
+픽셀아트와 일러스트 판타지 무기 이미지를 검색 모델·Vector DB·평가에 사용할 수 있도록 정리한 최종 데이터 패키지입니다.
 
-## 바로 사용할 파일
+## 핵심 파일
 
-- `data/metadata/final_search_assets.jsonl`: 모델 학습과 검색 인덱스 구축용 통합 메타데이터
-- `data/metadata/final_search_assets_pretty.json`: 사람이 읽기 편한 통합 메타데이터
-- `data/metadata/asset_sources.jsonl`: 에셋별 출처와 라이선스 기록
-- `data/processed/pixel_art/`: 정규화된 최종 이미지 1,113개
-- `data/splits/train.jsonl`: 모델 학습용 데이터 886개
-- `data/splits/validation.jsonl`: 설정 선택과 성능 확인용 데이터 115개
-- `data/splits/test.jsonl`: 최종 평가용 데이터 112개
-- `data/evaluation/`: 한국어·영어 검색 평가 질의와 정답 세트
-- `reports/`: 무결성 검증과 데이터 분포 분석 결과
-- `docs/DATASET_GUIDE_KO.md`: 데이터 사용 안내서
+- `data/metadata/final_search_assets.jsonl`: 모델과 검색 시스템에서 읽는 통합 메타데이터
+- `data/metadata/final_search_assets_pretty.json`: 사람이 검수하기 쉬운 통합 메타데이터
+- `data/metadata/asset_sources.jsonl`: 에셋별 출처·저작자·라이선스 기록
+- `data/metadata/tag_dictionary.json`: 실제 메타데이터 값으로 만든 태그 사전
+- `data/processed/pixel_art/`: 픽셀아트 이미지
+- `data/processed/rendered_icon/`: 렌더 아이콘 이미지
+- `data/processed/illustration/`: 일러스트 이미지 284개
+- `data/evaluation/`: 텍스트 검색 및 이미지+문장 결합검색 평가 자료
+- `reports/`: 품질 검증과 데이터 분포 보고서
 
-모든 메타데이터의 `processed_file`은 이 폴더를 기준으로 한 상대 경로입니다. 예를 들어 `data/processed/pixel_art/asset_000057.png`처럼 사용하면 됩니다.
+모든 `processed_file` 값은 이 저장소 루트를 기준으로 한 상대 경로입니다.
 
-## 검색 평가 세트
+## 현재 데이터 개수
 
-`data/evaluation` 폴더에는 test 데이터 112개만 후보로 사용하는 평가 자료가 들어 있습니다.
+- 통합 메타데이터: 1,391개
+- 픽셀아트: 957개
+- 렌더 아이콘: 150개
+- 일러스트: 284개
 
-- `evaluation_queries.jsonl`: 한국어 80개와 영어 80개, 총 160개 검색 질의
-- `ground_truth.jsonl`: 각 질의에 해당하는 정답 에셋 ID
-- `evaluation_results_template.json`: 검색 결과 지표 기록 양식
-- `evaluation_summary.json`: 평가 세트 구성 요약
-- `EVALUATION_GUIDE_KO.md`: 쉬운 사용 방법과 지표 설명
+모든 처리 이미지는 RGB PNG, 224×224, 배경색 `#E8EBEF` 형식입니다.
 
-한국어와 영어 질의는 같은 검색 개념끼리 동일한 정답을 사용합니다. 자세한 실행 순서는 `data/evaluation/EVALUATION_GUIDE_KO.md`를 확인하세요.
+## 일러스트 전용 분할
 
-## 최종 상태
+- `data/splits/illustration/train.jsonl`: 230개
+- `data/splits/illustration/validation.jsonl`: 27개
+- `data/splits/illustration/test.jsonl`: 27개
+- `data/splits/illustration/split_summary.json`: 분할 개수와 카테고리 분포
 
-- 전체 에셋: 1,113개
-- train: 886개
-- validation: 115개
-- test: 112개
-- `iron` 재질: 0개 (`steel`로 통일)
-- 중복 ID: 0개
-- 유사 이미지 그룹의 데이터 분할 누수: 0개
-- 라이선스 확인 완료: 1,113개
+같은 디자인의 색상·형태 변형은 하나의 그룹으로 묶어 서로 다른 split에 들어가지 않도록 했습니다.
 
-기존 프로젝트의 검수용 파일, 임시 자료, 캐시, 작업 스크립트와 과거 백업은 이 최종 패키지에 포함하지 않았습니다.
+## 출처와 라이선스
+
+각 에셋은 출처·저작자·라이선스 정보를 기록했습니다.
+
+- 출처 이름과 URL
+- 저작자
+- 라이선스 이름과 URL
+- 원본 파일명
+- 이미지 SHA-256
+
+자세한 내용은 `reports/ILLUSTRATION_SOURCE_LICENSE_REPORT_KO.md`와 `data/metadata/asset_sources.jsonl`에서 확인할 수 있습니다.
+
+## 검수 상태
+
+이미지 유효성·중복·출처·라이선스와 메타데이터를 검수했습니다. 픽셀아트 957개는 `train 772 / validation 94 / test 91`, 일러스트 284개는 `230 / 27 / 27`, 렌더 아이콘 150개는 `120 / 15 / 15`로 분리되어 있습니다.
+
+최종 자동 검증 결과는 `reports/ILLUSTRATION_VALIDATION_REPORT_KO.md`를 확인하세요.

@@ -1,7 +1,7 @@
 {
-  "created_on": "2026-08-07",
+  "created_on": "2026-08-10",
   "dataset_split": "test",
-  "candidate_asset_count": 112,
+  "candidate_asset_count": 91,
   "concept_count": 80,
   "query_count": 160,
   "language_counts": {
@@ -23,7 +23,13 @@
   "ground_truth": {
     "relevance": "binary",
     "minimum_relevant_assets": 1,
-    "maximum_relevant_assets": 82,
-    "average_relevant_assets": 8.213
-  }
+    "maximum_relevant_assets": 66,
+    "average_relevant_assets": 7.037
+  },
+  "replaced_concepts": [
+    "concept_032",
+    "concept_036",
+    "concept_059",
+    "concept_072"
+  ]
 }
