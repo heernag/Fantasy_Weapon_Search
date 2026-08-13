@@ -1,14 +1,16 @@
 # 데이터 분리 안내
 
-최종 메타데이터 1,391개를 데이터셋별 유사 이미지 그룹 단위로 분리했습니다.
+최종 메타데이터 1,391개를 같은 형태의 시각 변형이 서로 다른 split에 섞이지 않도록 분리했습니다.
 
-- 픽셀아트: train 772개 / validation 94개 / test 91개
-- 일러스트: train 229개 / validation 18개 / test 37개
-- 렌더 아이콘: train 121개 / validation 15개 / test 14개
+| 데이터셋 | train | validation | test | 합계 |
+| --- | ---: | ---: | ---: | ---: |
+| 픽셀아트 | 772 | 94 | 91 | 957 |
+| 일러스트 | 229 | 18 | 37 | 284 |
+| 렌더 아이콘 | 121 | 15 | 14 | 150 |
+
 - 분할 비율 목표: 80% / 10% / 10%
-- 고정 시드: 20260807
-- 유사 이미지 기준: 같은 카테고리에서 perceptual hash 해밍 거리 2 이하
+- 고정 시드: 픽셀아트·일러스트 `20260807`, 렌더 아이콘 `20260812`
+- 분할 단위: 같은 시각 변형으로 판정된 이미지는 동일 split에 함께 배치
+- 유사 변형 판정: 동일 perceptual hash를 우선 사용하며, 모든 style의 교차 split 누수는 0개입니다.
 
-루트의 `train.jsonl`, `validation.jsonl`, `test.jsonl`은 픽셀아트 split이며, `illustration/`과 `rendered_icon/` 하위에도 동일한 구조를 제공합니다.
-`split_manifest.jsonl`은 각 에셋의 소속과 유사 이미지 그룹을 확인하는 표입니다.
-`split_summary.json`은 분할 수와 카테고리 분포를 담고 있습니다.
+루트의 `train.jsonl`, `validation.jsonl`, `test.jsonl`은 픽셀아트 split입니다. 일러스트와 렌더 아이콘은 각각 `illustration/`, `rendered_icon/` 하위에 같은 파일 구조로 제공합니다. 각 `split_summary.json`은 해당 JSONL에서 재계산한 수량과 누수 검사 결과를 담습니다.

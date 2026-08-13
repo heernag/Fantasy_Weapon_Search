@@ -3,7 +3,7 @@
   "version": "final-2026-08-12",
   "frozen_at": "2026-08-12T00:00:00+09:00",
   "source_metadata": {
-    "path": "data/metadata/final_search_assets_pretty.json",
+    "path": "final_search_assets_pretty.json",
     "sha256": "b1072b6b08f4357bc8c337e92cc2e03e56fc98a8e1fe764b4aece752fb8af495",
     "asset_count": 1391
   },
@@ -24,17 +24,17 @@
         "train": {
           "count": 772,
           "sha256": "dab702a62f5abe2433621b2f6a47dcf8ea8ae3f8ab1fef85d7f7a512566c9b53",
-          "path": "data/splits/train.jsonl"
+          "path": "splits/pixel_art/train.jsonl"
         },
         "validation": {
           "count": 94,
           "sha256": "d54d47e88dc65917c516f1fd0d9a6263253bc71defbb62cd830ccf1748917e14",
-          "path": "data/splits/validation.jsonl"
+          "path": "splits/pixel_art/validation.jsonl"
         },
         "test": {
           "count": 91,
           "sha256": "b1cbd9dab82e0dbcb452aba5c11c6a5dbf4eae1cb84290949f2da23ba9c6c1d4",
-          "path": "data/splits/test.jsonl"
+          "path": "splits/pixel_art/test.jsonl"
         }
       },
       "train": {
@@ -61,17 +61,17 @@
         "train": {
           "count": 229,
           "sha256": "ab193fe7a61b19ad80c1c32f2223ead0ff96d6bf6b2a75afdfb50960c9ac93c7",
-          "path": "data/splits/illustration/train.jsonl"
+          "path": "splits/illustration/train.jsonl"
         },
         "validation": {
           "count": 18,
           "sha256": "fd3317c212318ecb6553a56356fa1dcf524515f033d1c52e0a30c02dd484a89b",
-          "path": "data/splits/illustration/validation.jsonl"
+          "path": "splits/illustration/validation.jsonl"
         },
         "test": {
           "count": 37,
           "sha256": "500c6721384052d7b21f0c72357767641c707cfa826b9621f85d1cbb44829c12",
-          "path": "data/splits/illustration/test.jsonl"
+          "path": "splits/illustration/test.jsonl"
         }
       },
       "train": {
@@ -98,17 +98,17 @@
         "train": {
           "count": 121,
           "sha256": "19a4da242b35c8ceabefaf023301f12a1eff610e3ff65d78547375ec3881f1c8",
-          "path": "data/splits/rendered_icon/train.jsonl"
+          "path": "splits/rendered_icon/train.jsonl"
         },
         "validation": {
           "count": 15,
           "sha256": "5a936791c821e42d6c450f124f3cc2be92530e06b4852066abe83ec9e79d3e92",
-          "path": "data/splits/rendered_icon/validation.jsonl"
+          "path": "splits/rendered_icon/validation.jsonl"
         },
         "test": {
           "count": 14,
           "sha256": "0bd982fc45ee9a3f48173585a3cf4562eebd97e0f3c37981e881c299f13bab7d",
-          "path": "data/splits/rendered_icon/test.jsonl"
+          "path": "splits/rendered_icon/test.jsonl"
         }
       },
       "train": {

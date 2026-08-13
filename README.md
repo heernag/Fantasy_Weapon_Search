@@ -50,4 +50,4 @@
 
 이미지 유효성·중복·출처·라이선스와 메타데이터를 검수했습니다. 픽셀아트 957개는 `train 772 / validation 94 / test 91`, 일러스트 284개는 `229 / 18 / 37`, 렌더 아이콘 150개는 `121 / 15 / 14`로 분리되어 있습니다. 동일 perceptual-hash 변형은 한 split에만 배치했습니다.
 
-최종 자동 검증 결과는 `reports/ILLUSTRATION_VALIDATION_REPORT_KO.md`를 확인하세요.
+최종 자동 검증 결과는 `reports/FINAL_VALIDATION_REPORT_KO.md`를 확인하세요.

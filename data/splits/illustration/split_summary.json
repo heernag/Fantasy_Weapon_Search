@@ -1,10 +1,13 @@
 {
   "total": 284,
   "counts": {
-    "train": 230,
-    "validation": 27,
-    "test": 27
+    "train": 229,
+    "validation": 18,
+    "test": 37
   },
-  "variant_groups": 232,
-  "group_leaks": 0
+  "variant_groups": 212,
+  "group_leaks": 0,
+  "overlap_count": 0,
+  "source_metadata": "data/metadata/final_search_assets_pretty.json",
+  "perceptual_hash_groups": 212
 }

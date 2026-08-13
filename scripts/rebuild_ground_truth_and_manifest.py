@@ -1,7 +1,10 @@
-"""Rebuild ground truth from current metadata and refresh manifests."""
+"""Rebuild evaluation ground truth and every release-derived artifact."""
 from __future__ import annotations
-import hashlib, json
+import json
 from pathlib import Path
+
+from finalize_dataset import refresh_release_artifacts
+from refresh_release_docs import refresh_release_docs
 
 ROOT = Path(__file__).resolve().parents[1]
 EVAL = ROOT / "data/evaluation"
@@ -54,42 +57,13 @@ def rebuild_illustration(split):
         gt.append({"query_id":q["query_id"],"concept_id":q["concept_id"],"candidate_split":"test","relevance":"binary","relevant_asset_ids":ids})
     dump(EVAL/"illustration_ground_truth.jsonl",gt)
 
-def refresh_manifest(path, meta, split_counts):
-    if not path.exists(): return
-    d=json.loads(path.read_text(encoding="utf-8"))
-    d.setdefault("source_metadata",{})["sha256"] = hashlib.sha256((ROOT/"data/metadata/final_search_assets_pretty.json").read_bytes()).hexdigest()
-    d["source_metadata"]["asset_count"] = len(meta)
-    d["style_counts"] = {"pixel_art":957,"illustration":284,"rendered_icon":150}
-    d.setdefault("splits",{})
-    for name, counts in split_counts.items():
-        d["splits"].setdefault(name,{})["counts"] = counts
-        d["splits"][name]["total"] = sum(counts.values())
-        for split, count in counts.items():
-            candidates = [
-                ROOT / "data/splits" / name / f"{split}.jsonl",
-                ROOT / "data/splits" / f"{split}.jsonl" if name == "pixel_art" else ROOT / "data/splits" / name / f"{split}.jsonl",
-            ]
-            src = next((candidate for candidate in candidates if candidate.exists()), None)
-            if src is None:
-                continue
-            entry = d["splits"][name].setdefault(split, {})
-            entry["count"] = count
-            entry["sha256"] = hashlib.sha256(src.read_bytes()).hexdigest()
-            files = d["splits"][name].setdefault("files", {})
-            file_entry = files.setdefault(split, {})
-            file_entry["count"] = count
-            file_entry["sha256"] = hashlib.sha256(src.read_bytes()).hexdigest()
-    path.write_text(json.dumps(d, ensure_ascii=False, indent=2)+"\n", encoding="utf-8", newline="\n")
-
 def main():
     meta=jl(ROOT/"data/metadata/final_search_assets.jsonl")
     pixel=jl(ROOT/"data/splits/test.jsonl"); ill=jl(ROOT/"data/splits/illustration/test.jsonl")
     rebuild_text(meta,pixel); rebuild_multimodal(meta,pixel); rebuild_illustration(ill)
-    counts={}
-    for name, directory in (("pixel_art", ROOT / "data/splits"), ("illustration", ROOT / "data/splits/illustration"), ("rendered_icon", ROOT / "data/splits/rendered_icon")):
-        counts[name] = {split: len(jl(directory / f"{split}.jsonl")) for split in ("train", "validation", "test")}
-    refresh_manifest(ROOT/"data/metadata/final_manifest.json",meta,counts)
-    refresh_manifest(ROOT/"handoff/backend_vector_db/final_manifest.json",meta,counts)
-    print('ground truth rebuilt')
+    pretty_meta = json.loads((ROOT / "data/metadata/final_search_assets_pretty.json").read_text(encoding="utf-8"))
+    refresh_release_artifacts(pretty_meta)
+    refresh_release_docs()
+    print("ground truth, release artifacts, and release docs rebuilt")
 
 if __name__ == '__main__': main()

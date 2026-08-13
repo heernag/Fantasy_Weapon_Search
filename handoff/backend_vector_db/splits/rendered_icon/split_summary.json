@@ -1,7 +1,7 @@
 {
   "dataset": "rendered_icon",
   "policy": "separate_split",
-  "source_metadata": "data/metadata/final_search_assets_pretty.json",
+  "source_metadata": "../../final_search_assets_pretty.json",
   "visual_style": "rendered_icon",
   "seed": 20260812,
   "ratios": {
@@ -10,11 +10,14 @@
     "test": 0.1
   },
   "counts": {
-    "train": 120,
+    "train": 121,
     "validation": 15,
-    "test": 15
+    "test": 14
   },
   "total": 150,
   "overlap_count": 0,
-  "notes": "렌더 아이콘은 pixel_art 및 illustration split과 분리해 독립적인 검색·평가 대상으로 관리한다."
+  "notes": "렌더 아이콘은 pixel_art 및 illustration split과 분리해 독립 검색·평가 대상으로 관리합니다.",
+  "variant_groups": 130,
+  "group_leaks": 0,
+  "perceptual_hash_groups": 130
 }
