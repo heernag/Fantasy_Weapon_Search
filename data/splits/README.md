@@ -3,8 +3,8 @@
 최종 메타데이터 1,391개를 데이터셋별 유사 이미지 그룹 단위로 분리했습니다.
 
 - 픽셀아트: train 772개 / validation 94개 / test 91개
-- 일러스트: train 230개 / validation 27개 / test 27개
-- 렌더 아이콘: train 120개 / validation 15개 / test 15개
+- 일러스트: train 229개 / validation 18개 / test 37개
+- 렌더 아이콘: train 121개 / validation 15개 / test 14개
 - 분할 비율 목표: 80% / 10% / 10%
 - 고정 시드: 20260807
 - 유사 이미지 기준: 같은 카테고리에서 perceptual hash 해밍 거리 2 이하

@@ -20,8 +20,8 @@ manifest의 `status`가 `final`인지 확인하고, 메타데이터 SHA-256이 �
 | 스타일 | train | validation | test |
 |---|---:|---:|---:|
 | pixel_art | 772 | 94 | 91 |
-| illustration | 230 | 27 | 27 |
-| rendered_icon | 120 | 15 | 15 |
+| illustration | 229 | 18 | 37 |
+| rendered_icon | 121 | 15 | 14 |
 
 - 픽셀아트: `data/splits/train.jsonl`, `validation.jsonl`, `test.jsonl`
 - 일러스트: `data/splits/illustration/`

@@ -27,9 +27,9 @@
 
 ## 일러스트 전용 분할
 
-- `data/splits/illustration/train.jsonl`: 230개
-- `data/splits/illustration/validation.jsonl`: 27개
-- `data/splits/illustration/test.jsonl`: 27개
+- `data/splits/illustration/train.jsonl`: 229개
+- `data/splits/illustration/validation.jsonl`: 18개
+- `data/splits/illustration/test.jsonl`: 37개
 - `data/splits/illustration/split_summary.json`: 분할 개수와 카테고리 분포
 
 같은 디자인의 색상·형태 변형은 하나의 그룹으로 묶어 서로 다른 split에 들어가지 않도록 했습니다.
@@ -48,6 +48,6 @@
 
 ## 검수 상태
 
-이미지 유효성·중복·출처·라이선스와 메타데이터를 검수했습니다. 픽셀아트 957개는 `train 772 / validation 94 / test 91`, 일러스트 284개는 `230 / 27 / 27`, 렌더 아이콘 150개는 `120 / 15 / 15`로 분리되어 있습니다.
+이미지 유효성·중복·출처·라이선스와 메타데이터를 검수했습니다. 픽셀아트 957개는 `train 772 / validation 94 / test 91`, 일러스트 284개는 `229 / 18 / 37`, 렌더 아이콘 150개는 `121 / 15 / 14`로 분리되어 있습니다. 동일 perceptual-hash 변형은 한 split에만 배치했습니다.
 
 최종 자동 검증 결과는 `reports/ILLUSTRATION_VALIDATION_REPORT_KO.md`를 확인하세요.
