@@ -1,0 +1,246 @@
+{
+  "dataset": "multimodal_validation",
+  "language": "en",
+  "model_name": "ViT-B-16",
+  "pretrained": "laion2b_s34b_b88k",
+  "adapter_checkpoint": "models/clip_adapter_vit_b16/best_adapter.pt",
+  "translation_model": null,
+  "candidate_count": 94,
+  "weight_results": [
+    {
+      "image_weight": 0.0,
+      "text_weight": 1.0,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.15,
+        "Recall@5": 0.25,
+        "Recall@10": 0.45,
+        "MRR": 0.227998,
+        "mAP": 0.229174
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.25,
+          "Recall@5": 0.3125,
+          "Recall@10": 0.5625,
+          "MRR": 0.320007,
+          "mAP": 0.320007
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.0,
+          "Recall@5": 0.2,
+          "Recall@10": 0.4,
+          "MRR": 0.11766,
+          "mAP": 0.11766
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.2,
+          "Recall@5": 0.3,
+          "Recall@10": 0.5,
+          "MRR": 0.268578,
+          "mAP": 0.269495
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.0,
+          "Recall@5": 0.0,
+          "Recall@10": 0.0,
+          "MRR": 0.034355,
+          "mAP": 0.043825
+        }
+      }
+    },
+    {
+      "image_weight": 0.2,
+      "text_weight": 0.8,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.25,
+        "Recall@5": 0.55,
+        "Recall@10": 0.75,
+        "MRR": 0.394104,
+        "mAP": 0.396739
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.25,
+          "Recall@5": 0.5,
+          "Recall@10": 0.6875,
+          "MRR": 0.387606,
+          "mAP": 0.387606
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.3,
+          "Recall@5": 0.8,
+          "Recall@10": 1.0,
+          "MRR": 0.505119,
+          "mAP": 0.505119
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.3,
+          "Recall@5": 0.5,
+          "Recall@10": 0.7,
+          "MRR": 0.402786,
+          "mAP": 0.40305
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.0,
+          "Recall@5": 0.25,
+          "Recall@10": 0.5,
+          "MRR": 0.120852,
+          "mAP": 0.146546
+        }
+      }
+    },
+    {
+      "image_weight": 0.4,
+      "text_weight": 0.6,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.35,
+        "Recall@5": 0.6,
+        "Recall@10": 0.675,
+        "MRR": 0.456374,
+        "mAP": 0.444758
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.1875,
+          "Recall@5": 0.5625,
+          "Recall@10": 0.625,
+          "MRR": 0.338286,
+          "mAP": 0.338286
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.5,
+          "Recall@5": 0.7,
+          "Recall@10": 0.9,
+          "MRR": 0.594167,
+          "mAP": 0.594167
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.4,
+          "Recall@5": 0.6,
+          "Recall@10": 0.6,
+          "MRR": 0.479545,
+          "mAP": 0.47399
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.5,
+          "Recall@5": 0.5,
+          "Recall@10": 0.5,
+          "MRR": 0.526316,
+          "mAP": 0.424043
+        }
+      }
+    },
+    {
+      "image_weight": 0.6,
+      "text_weight": 0.4,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.325,
+        "Recall@5": 0.55,
+        "Recall@10": 0.625,
+        "MRR": 0.419249,
+        "mAP": 0.419118
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.1875,
+          "Recall@5": 0.4375,
+          "Recall@10": 0.625,
+          "MRR": 0.32288,
+          "mAP": 0.32288
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.5,
+          "Recall@5": 0.7,
+          "Recall@10": 0.7,
+          "MRR": 0.568396,
+          "mAP": 0.568396
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.4,
+          "Recall@5": 0.6,
+          "Recall@10": 0.6,
+          "MRR": 0.460061,
+          "mAP": 0.461846
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.25,
+          "Recall@5": 0.5,
+          "Recall@10": 0.5,
+          "MRR": 0.329825,
+          "mAP": 0.324055
+        }
+      }
+    },
+    {
+      "image_weight": 0.8,
+      "text_weight": 0.19999999999999996,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.3,
+        "Recall@5": 0.4,
+        "Recall@10": 0.575,
+        "MRR": 0.386557,
+        "mAP": 0.38862
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.25,
+          "Recall@5": 0.3125,
+          "Recall@10": 0.5,
+          "MRR": 0.327571,
+          "mAP": 0.327571
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.4,
+          "Recall@5": 0.5,
+          "Recall@10": 0.7,
+          "MRR": 0.496071,
+          "mAP": 0.496071
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.4,
+          "Recall@5": 0.4,
+          "Recall@10": 0.6,
+          "MRR": 0.444898,
+          "mAP": 0.447675
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.0,
+          "Recall@5": 0.5,
+          "Recall@10": 0.5,
+          "MRR": 0.202864,
+          "mAP": 0.216554
+        }
+      }
+    }
+  ],
+  "selected_weight": {
+    "image_weight": 0.4,
+    "text_weight": 0.6,
+    "selection_rule": "highest MRR, then Recall@1, then mAP"
+  }
+}

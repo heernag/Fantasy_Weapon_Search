@@ -1,0 +1,13 @@
+{
+  "base_model_name": "ViT-B-16",
+  "base_pretrained": "laion2b_s34b_b88k",
+  "adapter_checkpoint": "models/clip_adapter_vit_b16/best_adapter.pt",
+  "adapter_epoch": 8,
+  "hidden_dimension": 128,
+  "embedding_dimension": 512,
+  "normalized": true,
+  "asset_count": 1391,
+  "dtype": "float32",
+  "source_embedding_dir": "embeddings/ViT-B-16_laion2b_s34b_b88k",
+  "generated_at": "2026-08-14T16:10:17.470844"
+}
