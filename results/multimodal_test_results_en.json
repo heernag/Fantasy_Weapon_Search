@@ -1,0 +1,61 @@
+{
+  "dataset": "multimodal_test",
+  "language": "en",
+  "model_name": "ViT-B-32",
+  "pretrained": "laion2b_s34b_b79k",
+  "translation_model": null,
+  "candidate_count": 91,
+  "weight_results": [
+    {
+      "image_weight": 0.4,
+      "text_weight": 0.6,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.2,
+        "Recall@5": 0.35,
+        "Recall@10": 0.475,
+        "MRR": 0.3013,
+        "mAP": 0.302044
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.25,
+          "Recall@5": 0.5,
+          "Recall@10": 0.625,
+          "MRR": 0.380664,
+          "mAP": 0.382524
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.2,
+          "Recall@5": 0.3,
+          "Recall@10": 0.6,
+          "MRR": 0.304427,
+          "mAP": 0.304427
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.1,
+          "Recall@5": 0.1,
+          "Recall@10": 0.1,
+          "MRR": 0.134985,
+          "mAP": 0.134985
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.25,
+          "Recall@5": 0.5,
+          "Recall@10": 0.5,
+          "MRR": 0.39181,
+          "mAP": 0.39181
+        }
+      }
+    }
+  ],
+  "selected_weight": {
+    "image_weight": 0.4,
+    "text_weight": 0.6,
+    "selection_rule": "fixed at image 0.4 / text 0.6 from validation"
+  }
+}
