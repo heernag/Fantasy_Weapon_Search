@@ -1,0 +1,244 @@
+{
+  "dataset": "multimodal_validation",
+  "language": "en",
+  "model_name": "ViT-B-32",
+  "pretrained": "laion2b_s34b_b79k",
+  "candidate_count": 94,
+  "weight_results": [
+    {
+      "image_weight": 0.0,
+      "text_weight": 1.0,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.1,
+        "Recall@5": 0.275,
+        "Recall@10": 0.35,
+        "MRR": 0.20037,
+        "mAP": 0.200634
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.125,
+          "Recall@5": 0.375,
+          "Recall@10": 0.5,
+          "MRR": 0.238658,
+          "mAP": 0.238658
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.2,
+          "Recall@5": 0.3,
+          "Recall@10": 0.4,
+          "MRR": 0.287976,
+          "mAP": 0.287976
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.0,
+          "Recall@5": 0.2,
+          "Recall@10": 0.2,
+          "MRR": 0.125727,
+          "mAP": 0.125727
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.0,
+          "Recall@5": 0.0,
+          "Recall@10": 0.0,
+          "MRR": 0.01481,
+          "mAP": 0.017446
+        }
+      }
+    },
+    {
+      "image_weight": 0.2,
+      "text_weight": 0.8,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.275,
+        "Recall@5": 0.475,
+        "Recall@10": 0.625,
+        "MRR": 0.376319,
+        "mAP": 0.374943
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.3125,
+          "Recall@5": 0.5625,
+          "Recall@10": 0.6875,
+          "MRR": 0.432961,
+          "mAP": 0.432961
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.4,
+          "Recall@5": 0.7,
+          "Recall@10": 0.9,
+          "MRR": 0.519178,
+          "mAP": 0.519178
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.2,
+          "Recall@5": 0.3,
+          "Recall@10": 0.4,
+          "MRR": 0.272489,
+          "mAP": 0.27225
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.0,
+          "Recall@5": 0.0,
+          "Recall@10": 0.25,
+          "MRR": 0.05218,
+          "mAP": 0.039012
+        }
+      }
+    },
+    {
+      "image_weight": 0.4,
+      "text_weight": 0.6,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.3,
+        "Recall@5": 0.475,
+        "Recall@10": 0.65,
+        "MRR": 0.404394,
+        "mAP": 0.400735
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.3125,
+          "Recall@5": 0.5,
+          "Recall@10": 0.6875,
+          "MRR": 0.416045,
+          "mAP": 0.416045
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.5,
+          "Recall@5": 0.7,
+          "Recall@10": 0.9,
+          "MRR": 0.602738,
+          "mAP": 0.602738
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.2,
+          "Recall@5": 0.3,
+          "Recall@10": 0.5,
+          "MRR": 0.304011,
+          "mAP": 0.304011
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.0,
+          "Recall@5": 0.25,
+          "Recall@10": 0.25,
+          "MRR": 0.112883,
+          "mAP": 0.076298
+        }
+      }
+    },
+    {
+      "image_weight": 0.6,
+      "text_weight": 0.4,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.3,
+        "Recall@5": 0.5,
+        "Recall@10": 0.65,
+        "MRR": 0.39064,
+        "mAP": 0.385025
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.1875,
+          "Recall@5": 0.5,
+          "Recall@10": 0.6875,
+          "MRR": 0.314144,
+          "mAP": 0.314144
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.6,
+          "Recall@5": 0.6,
+          "Recall@10": 0.7,
+          "MRR": 0.628272,
+          "mAP": 0.628272
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.3,
+          "Recall@5": 0.5,
+          "Recall@10": 0.6,
+          "MRR": 0.364074,
+          "mAP": 0.365185
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.0,
+          "Recall@5": 0.25,
+          "Recall@10": 0.5,
+          "MRR": 0.168959,
+          "mAP": 0.110031
+        }
+      }
+    },
+    {
+      "image_weight": 0.8,
+      "text_weight": 0.19999999999999996,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.275,
+        "Recall@5": 0.375,
+        "Recall@10": 0.55,
+        "MRR": 0.356533,
+        "mAP": 0.351633
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.125,
+          "Recall@5": 0.25,
+          "Recall@10": 0.4375,
+          "MRR": 0.231233,
+          "mAP": 0.231233
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.6,
+          "Recall@5": 0.7,
+          "Recall@10": 0.7,
+          "MRR": 0.63281,
+          "mAP": 0.63281
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.3,
+          "Recall@5": 0.3,
+          "Recall@10": 0.6,
+          "MRR": 0.35466,
+          "mAP": 0.358195
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.0,
+          "Recall@5": 0.25,
+          "Recall@10": 0.5,
+          "MRR": 0.171726,
+          "mAP": 0.113891
+        }
+      }
+    }
+  ],
+  "selected_weight": {
+    "image_weight": 0.4,
+    "text_weight": 0.6,
+    "selection_rule": "highest MRR, then Recall@1, then mAP"
+  }
+}
