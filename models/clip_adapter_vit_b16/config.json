@@ -1,0 +1,42 @@
+{
+  "method": "frozen OpenCLIP encoders with trainable residual image/text adapters",
+  "model_name": "ViT-B-16",
+  "pretrained": "laion2b_s34b_b88k",
+  "embedding_dimension": 512,
+  "hidden_dimension": 128,
+  "train_count": 772,
+  "validation_count": 94,
+  "test_used": false,
+  "batch_size": 64,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "temperature": 0.07,
+  "seed": 42,
+  "selection_rule": "highest validation mean Recall@5, then mean Recall@1, then lowest loss",
+  "baseline_validation_metrics": {
+    "loss": 3.417003,
+    "text_to_image_recall@1": 0.478723,
+    "image_to_text_recall@1": 0.404255,
+    "text_to_image_recall@5": 0.744681,
+    "image_to_text_recall@5": 0.797872,
+    "text_to_image_recall@10": 0.893617,
+    "image_to_text_recall@10": 0.840426,
+    "mean_recall@1": 0.441489,
+    "mean_recall@5": 0.771277
+  },
+  "best_epoch": 8,
+  "best_validation_metrics": {
+    "loss": 1.218866,
+    "text_to_image_recall@1": 0.691489,
+    "image_to_text_recall@1": 0.638298,
+    "text_to_image_recall@5": 0.925532,
+    "image_to_text_recall@5": 0.957447,
+    "text_to_image_recall@10": 0.968085,
+    "image_to_text_recall@10": 0.978723,
+    "mean_recall@1": 0.664894,
+    "mean_recall@5": 0.94149,
+    "epoch": 8,
+    "train_loss": 0.730403
+  },
+  "elapsed_seconds": 40.75
+}

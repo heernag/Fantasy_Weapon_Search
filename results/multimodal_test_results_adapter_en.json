@@ -1,0 +1,56 @@
+{
+  "dataset": "multimodal_test",
+  "language": "en",
+  "model_name": "ViT-B-16",
+  "pretrained": "laion2b_s34b_b88k",
+  "adapter_checkpoint": "models/clip_adapter_vit_b16/best_adapter.pt",
+  "translation_model": null,
+  "candidate_count": 91,
+  "fixed_weight": {
+    "image_weight": 0.4,
+    "text_weight": 0.6,
+    "selected_on": "multimodal validation set"
+  },
+  "overall": {
+    "query_count": 40,
+    "Recall@1": 0.3,
+    "Recall@5": 0.5,
+    "Recall@10": 0.55,
+    "MRR": 0.39262,
+    "mAP": 0.393314
+  },
+  "by_query_type": {
+    "color_change": {
+      "query_count": 16,
+      "Recall@1": 0.25,
+      "Recall@5": 0.5625,
+      "Recall@10": 0.6875,
+      "MRR": 0.406227,
+      "mAP": 0.407963
+    },
+    "element_change": {
+      "query_count": 10,
+      "Recall@1": 0.5,
+      "Recall@5": 0.5,
+      "Recall@10": 0.5,
+      "MRR": 0.513747,
+      "mAP": 0.513747
+    },
+    "material_change": {
+      "query_count": 10,
+      "Recall@1": 0.1,
+      "Recall@5": 0.3,
+      "Recall@10": 0.3,
+      "MRR": 0.171396,
+      "mAP": 0.171396
+    },
+    "style_change": {
+      "query_count": 4,
+      "Recall@1": 0.5,
+      "Recall@5": 0.75,
+      "Recall@10": 0.75,
+      "MRR": 0.588435,
+      "mAP": 0.588435
+    }
+  }
+}

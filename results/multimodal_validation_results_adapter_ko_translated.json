@@ -1,0 +1,246 @@
+{
+  "dataset": "multimodal_validation",
+  "language": "ko",
+  "model_name": "ViT-B-16",
+  "pretrained": "laion2b_s34b_b88k",
+  "adapter_checkpoint": "models/clip_adapter_vit_b16/best_adapter.pt",
+  "translation_model": "Helsinki-NLP/opus-mt-ko-en",
+  "candidate_count": 94,
+  "weight_results": [
+    {
+      "image_weight": 0.0,
+      "text_weight": 1.0,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.175,
+        "Recall@5": 0.35,
+        "Recall@10": 0.4,
+        "MRR": 0.269864,
+        "mAP": 0.27057
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.25,
+          "Recall@5": 0.5,
+          "Recall@10": 0.5,
+          "MRR": 0.381629,
+          "mAP": 0.381629
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.1,
+          "Recall@5": 0.3,
+          "Recall@10": 0.3,
+          "MRR": 0.192164,
+          "mAP": 0.192164
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.2,
+          "Recall@5": 0.3,
+          "Recall@10": 0.5,
+          "MRR": 0.265153,
+          "mAP": 0.266427
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.0,
+          "Recall@5": 0.0,
+          "Recall@10": 0.0,
+          "MRR": 0.028834,
+          "mAP": 0.032703
+        }
+      }
+    },
+    {
+      "image_weight": 0.2,
+      "text_weight": 0.8,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.3,
+        "Recall@5": 0.525,
+        "Recall@10": 0.725,
+        "MRR": 0.406669,
+        "mAP": 0.406608
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.3125,
+          "Recall@5": 0.5,
+          "Recall@10": 0.625,
+          "MRR": 0.421729,
+          "mAP": 0.421729
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.3,
+          "Recall@5": 0.6,
+          "Recall@10": 1.0,
+          "MRR": 0.440556,
+          "mAP": 0.440556
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.4,
+          "Recall@5": 0.6,
+          "Recall@10": 0.7,
+          "MRR": 0.470604,
+          "mAP": 0.470931
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.0,
+          "Recall@5": 0.25,
+          "Recall@10": 0.5,
+          "MRR": 0.101871,
+          "mAP": 0.100445
+        }
+      }
+    },
+    {
+      "image_weight": 0.4,
+      "text_weight": 0.6,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.325,
+        "Recall@5": 0.6,
+        "Recall@10": 0.65,
+        "MRR": 0.428493,
+        "mAP": 0.425294
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.1875,
+          "Recall@5": 0.5,
+          "Recall@10": 0.625,
+          "MRR": 0.322024,
+          "mAP": 0.322024
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.5,
+          "Recall@5": 0.8,
+          "Recall@10": 0.8,
+          "MRR": 0.578995,
+          "mAP": 0.578995
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.4,
+          "Recall@5": 0.6,
+          "Recall@10": 0.6,
+          "MRR": 0.479255,
+          "mAP": 0.476874
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.25,
+          "Recall@5": 0.5,
+          "Recall@10": 0.5,
+          "MRR": 0.351213,
+          "mAP": 0.325172
+        }
+      }
+    },
+    {
+      "image_weight": 0.6,
+      "text_weight": 0.4,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.35,
+        "Recall@5": 0.475,
+        "Recall@10": 0.625,
+        "MRR": 0.419548,
+        "mAP": 0.420322
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.25,
+          "Recall@5": 0.375,
+          "Recall@10": 0.5625,
+          "MRR": 0.338157,
+          "mAP": 0.338157
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.5,
+          "Recall@5": 0.6,
+          "Recall@10": 0.8,
+          "MRR": 0.55531,
+          "mAP": 0.55531
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.4,
+          "Recall@5": 0.5,
+          "Recall@10": 0.6,
+          "MRR": 0.451806,
+          "mAP": 0.457758
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.25,
+          "Recall@5": 0.5,
+          "Recall@10": 0.5,
+          "MRR": 0.325063,
+          "mAP": 0.31792
+        }
+      }
+    },
+    {
+      "image_weight": 0.8,
+      "text_weight": 0.19999999999999996,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.3,
+        "Recall@5": 0.4,
+        "Recall@10": 0.625,
+        "MRR": 0.385905,
+        "mAP": 0.388266
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.25,
+          "Recall@5": 0.3125,
+          "Recall@10": 0.5625,
+          "MRR": 0.324532,
+          "mAP": 0.324532
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.4,
+          "Recall@5": 0.5,
+          "Recall@10": 0.8,
+          "MRR": 0.500339,
+          "mAP": 0.500339
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.4,
+          "Recall@5": 0.4,
+          "Recall@10": 0.6,
+          "MRR": 0.442884,
+          "mAP": 0.446852
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.0,
+          "Recall@5": 0.5,
+          "Recall@10": 0.5,
+          "MRR": 0.202864,
+          "mAP": 0.216554
+        }
+      }
+    }
+  ],
+  "selected_weight": {
+    "image_weight": 0.4,
+    "text_weight": 0.6,
+    "selection_rule": "highest MRR, then Recall@1, then mAP"
+  }
+}
