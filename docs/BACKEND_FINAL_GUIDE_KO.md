@@ -57,13 +57,20 @@
      └─ app/service_manifest.py   기동 시 번들 무결성 검증
 ```
 
-`src/retrieval/`의 두 파일은 **1번 AI 담당이 작성해 넘겨준 것이며, 이번 백엔드
-작업에서는 한 줄도 수정하지 않았습니다.** FAISS 검색과 어댑터 적용은 인수인계 시점에
-이미 그 안에 구현돼 있었습니다. 이번 작업에서 추가한 페이징, 질의 용어 교정, 필터
-표기 정규화는 **전부 `app/` 계층**에서 처리했습니다.
+이번 작업에서 추가한 페이징, 질의 용어 교정, 필터 표기 정규화는 **전부 `app/`
+계층**에서 처리했습니다. 다만 `src/retrieval/`의 두 파일에도 **검색을 동작시키기
+위한 변경이 포함되어 있습니다.** 1번 AI 담당 영역이므로 아래 내용을 확인해 주세요.
 
-> 2번 파트 완료 시점의 스냅샷과 비교하면 이 두 파일이 달라 보이는데, 그 차이는
-> 1번 담당의 어댑터 병합(원격 `main`의 `fd35d0a`)에서 생긴 것입니다.
+| 파일 | 변경 | 내용 |
+|---|---|---|
+| `search_service.py` | 9줄 | `SCALAR_FILTERS`에 `style`·`handedness` 추가, OpenCLIP과 번역 모델 로딩에 `cache_dir` 지정 |
+| `search_service_adapter.py` | 187줄 | FAISS 검색 경로 전체 — `_configure_faiss_index`, `_rank_with_faiss`, `_faiss_results`, `_combine_vectors`, `_adapt_vector`, `search_text` / `search_image` / `search_multimodal` |
+
+**왜 필요했는가** — 원격 `main`(`fd35d0a`) 시점의 `search_service_adapter.py`에는
+어댑터 클래스 정의와 생성자까지만 있고 검색 메서드가 없어, API에서 호출할 진입점이
+없었습니다. `style`·`handedness`도 서비스 단 필터 목록에 없어 요청이 거부됐습니다.
+`cache_dir` 지정은 모델 캐시가 저장소 안의 `.cache/`에 모이도록 한 것으로,
+`Dockerfile`의 볼륨 경로가 이 값을 따릅니다.
 
 ### 모델과 데이터
 

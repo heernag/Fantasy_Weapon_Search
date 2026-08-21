@@ -31,7 +31,11 @@ from src.retrieval.search_service_adapter import WeaponSearchService
 | 번들 검증 manifest | `storage/indexes/service_manifest.json` |
 
 `storage/indexes/weapons.faiss`는 베이스라인이 아니라 **어댑터 임베딩으로 빌드된
-인덱스**입니다(`scripts/build_final_index.py`). 서버는 시작할 때
+인덱스**입니다(`scripts/build_final_index.py`).
+
+> `src/retrieval/`의 두 파일에는 이번 작업에 포함된 변경이 있습니다. FAISS 검색
+> 경로와 `style`·`handedness` 필터, 모델 캐시 경로 지정입니다. 자세한 내용은
+> `docs/BACKEND_FINAL_GUIDE_KO.md` 2절을 참고하세요. 서버는 시작할 때
 `service_manifest.json`의 sha256과 asset_id 순서를 대조해 모델·임베딩·인덱스·
 메타데이터가 같은 번들인지 확인하고, 어긋나면 기동에 실패합니다.
 
