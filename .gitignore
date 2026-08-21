@@ -250,3 +250,8 @@ storage/logs/*.jsonl
 .docx_qa/
 .claude/
 *.lnk
+
+# 작업 중 생긴 사본·임시 출력
+check.txt
+stat.txt
+r?.txt

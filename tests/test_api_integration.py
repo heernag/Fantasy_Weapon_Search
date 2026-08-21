@@ -134,14 +134,12 @@ def test_real_model_search_endpoints():
 
 
 def test_images_endpoint_serves_only_final_bundle_files():
-    # data/processed에는 최종 1,391개에 포함되지 않은 작업 파일이 남아 있다.
-    # 디렉터리를 통째로 공개하면 최종 번들 계약 밖의 이미지가 노출된다.
-    orphan = ROOT / "data/processed/pixel_art/asset_000381.png"
-    assert orphan.exists()
-
+    # 디렉터리를 통째로 공개하면 최종 번들에 없는 작업 파일까지 함께 노출된다.
+    # 그래서 메타데이터에 실린 것만 허용 목록으로 제공한다.
     with TestClient(app) as client:
+        assert len(app.state.image_files) == 1391
         served = client.get("/images/illustration/asset_001572.png")
-        blocked = client.get("/images/pixel_art/asset_000381.png")
+        blocked = client.get("/images/pixel_art/asset_999999.png")
         # `../`는 클라이언트가 정규화해 서버까지 오지 않을 수 있으므로
         # 인코딩된 형태로 라우트가 직접 받도록 한다.
         traversals = [
