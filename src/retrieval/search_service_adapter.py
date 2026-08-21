@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
+import faiss
 import numpy as np
 import torch
 import torch.nn as nn
@@ -63,6 +65,15 @@ class WeaponSearchService(BaseWeaponSearchService):
                 "Adapted embedding asset IDs do not match baseline asset IDs."
             )
 
+        index = faiss.read_index(
+            str(self.root / "storage/indexes/weapons.faiss")
+        )
+        with (self.root / "storage/indexes/weapon_ids.json").open(
+            "r", encoding="utf-8"
+        ) as file:
+            index_asset_ids = json.load(file)
+        self._configure_faiss_index(index, index_asset_ids)
+
         self.adapter_checkpoint = (
             self.root / "models/clip_adapter_vit_b16/best_adapter.pt"
         )
@@ -79,6 +90,99 @@ class WeaponSearchService(BaseWeaponSearchService):
         self.adapter.eval()
         self.model_variant = "ViT-B-16 + custom residual adapters"
 
+    def _configure_faiss_index(
+        self,
+        index,
+        index_asset_ids: list[str],
+    ) -> None:
+        embedding_dimension = self.image_embeddings.shape[1]
+        if index.d != embedding_dimension:
+            raise ValueError(
+                "FAISS dimension does not match adapter embedding dimension."
+            )
+        if index.ntotal != len(self.asset_ids):
+            raise ValueError(
+                "FAISS vector count does not match adapter asset count."
+            )
+        if index_asset_ids != self.asset_ids:
+            raise ValueError(
+                "FAISS asset ID order does not match adapter asset ID order."
+            )
+        self.faiss_index = index
+        self.faiss_asset_ids = list(index_asset_ids)
+
+    def _rank_with_faiss(
+        self,
+        query_vector: np.ndarray,
+        candidate_indices: list[int],
+        top_k: int,
+    ) -> list[tuple[int, float]]:
+        candidates = set(candidate_indices)
+        if not candidates:
+            return []
+
+        query = np.asarray(query_vector, dtype="float32").reshape(1, -1)
+        if query.shape[1] != self.faiss_index.d:
+            raise ValueError("Query dimension does not match FAISS dimension.")
+
+        fetch_k = min(max(top_k, 1), self.faiss_index.ntotal)
+        while True:
+            scores, positions = self.faiss_index.search(query, fetch_k)
+            matches = [
+                (int(position), float(score))
+                for position, score in zip(positions[0], scores[0])
+                if position >= 0 and int(position) in candidates
+            ]
+            if len(matches) >= top_k or fetch_k >= self.faiss_index.ntotal:
+                return matches[:top_k]
+            fetch_k = min(fetch_k * 2, self.faiss_index.ntotal)
+
+    def _faiss_results(
+        self,
+        query_vector: np.ndarray,
+        candidate_indices: list[int],
+        top_k: int,
+        image_vector: np.ndarray | None = None,
+        text_vector: np.ndarray | None = None,
+    ) -> list[dict]:
+        ranked = self._rank_with_faiss(
+            query_vector,
+            candidate_indices,
+            top_k,
+        )
+        results = []
+        for index, score in ranked:
+            image_score = None
+            text_score = None
+            if image_vector is not None and text_vector is not None:
+                candidate = np.asarray(
+                    self.faiss_index.reconstruct(index), dtype="float32"
+                )
+                image_score = float(np.dot(candidate, image_vector))
+                text_score = float(np.dot(candidate, text_vector))
+            results.append(
+                self._result_record(index, score, image_score, text_score)
+            )
+        return results
+
+    @staticmethod
+    def _combine_vectors(
+        image_vector: np.ndarray,
+        text_vector: np.ndarray,
+        image_weight: float,
+    ) -> np.ndarray:
+        image = np.asarray(image_vector, dtype="float32")
+        text = np.asarray(text_vector, dtype="float32")
+        if image.shape != text.shape:
+            raise ValueError(
+                f"Image and text vector shape must match: {image.shape} != {text.shape}"
+            )
+        combined = image_weight * image + (1.0 - image_weight) * text
+        norm = np.linalg.norm(combined)
+        if norm <= 1e-12:
+            raise ValueError("Cannot normalize a zero vector.")
+        return (combined / norm).astype("float32")
+
     def _adapt_vector(
         self,
         vector: np.ndarray,
@@ -92,7 +196,8 @@ class WeaponSearchService(BaseWeaponSearchService):
                 adapted = self.adapter.text_adapter(tensor)
             else:
                 raise ValueError(f"Unsupported modality: {modality}")
-        return adapted.cpu().numpy().astype(np.float32)[0]
+        vector = adapted.cpu().numpy().astype(np.float32)[0]
+        return self._normalize(vector).astype(np.float32)
 
     def _encode_text(self, text: str) -> tuple[np.ndarray, str | None]:
         base_vector, translated = super()._encode_text(text)
@@ -104,3 +209,83 @@ class WeaponSearchService(BaseWeaponSearchService):
     ) -> tuple[np.ndarray, Path | None]:
         base_vector, image_path = super()._encode_image(image)
         return self._adapt_vector(base_vector, "image"), image_path
+
+    def search_text(
+        self,
+        text: str,
+        top_k: int = 10,
+        filters: dict | None = None,
+    ) -> dict:
+        self._validate_top_k(top_k)
+        vector, translated = self._encode_text(text)
+        candidates = self._candidate_indices(filters)
+        return {
+            "search_type": "text",
+            "query_text": text,
+            "translated_text": translated,
+            "candidate_count": len(candidates),
+            "results": self._faiss_results(vector, candidates, top_k),
+        }
+
+    def search_image(
+        self,
+        image,
+        top_k: int = 10,
+        filters: dict | None = None,
+        include_self: bool = False,
+        excluded_asset_ids: set[str] | None = None,
+    ) -> dict:
+        self._validate_top_k(top_k)
+        vector, image_path = self._encode_image(image)
+        excluded_path = None if include_self else image_path
+        excluded_ids = set() if include_self else (excluded_asset_ids or set())
+        candidates = self._candidate_indices(
+            filters,
+            excluded_asset_ids=excluded_ids,
+            excluded_path=excluded_path,
+        )
+        return {
+            "search_type": "image",
+            "candidate_count": len(candidates),
+            "results": self._faiss_results(vector, candidates, top_k),
+        }
+
+    def search_multimodal(
+        self,
+        image,
+        text: str,
+        top_k: int = 10,
+        filters: dict | None = None,
+        image_weight: float = 0.4,
+        excluded_asset_ids: set[str] | None = None,
+    ) -> dict:
+        self._validate_top_k(top_k)
+        if not 0 <= image_weight <= 1:
+            raise ValueError("image_weight must be between 0 and 1.")
+
+        text_weight = 1.0 - image_weight
+        image_vector, image_path = self._encode_image(image)
+        text_vector, translated = self._encode_text(text)
+        combined_vector = self._combine_vectors(
+            image_vector, text_vector, image_weight
+        )
+        candidates = self._candidate_indices(
+            filters,
+            excluded_asset_ids=excluded_asset_ids,
+            excluded_path=image_path,
+        )
+        return {
+            "search_type": "multimodal",
+            "query_text": text,
+            "translated_text": translated,
+            "image_weight": image_weight,
+            "text_weight": text_weight,
+            "candidate_count": len(candidates),
+            "results": self._faiss_results(
+                combined_vector,
+                candidates,
+                top_k,
+                image_vector=image_vector,
+                text_vector=text_vector,
+            ),
+        }

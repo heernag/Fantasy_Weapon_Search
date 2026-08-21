@@ -1,11 +1,41 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_current_manifest_hash_matches_declared_metadata_file() -> None:
+    manifest_path = ROOT / "data/metadata/final_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    metadata_path = ROOT / manifest["source_metadata"]["path"]
+
+    assert hashlib.sha256(metadata_path.read_bytes()).hexdigest() == (
+        manifest["source_metadata"]["sha256"]
+    )
+
+
+def test_sync_splits_ignores_non_split_jsonl(tmp_path, monkeypatch) -> None:
+    import scripts.finalize_dataset as finalize_dataset
+
+    split_dir = tmp_path / "splits"
+    split_dir.mkdir()
+    canonical = {"asset_id": "asset_current", "category": "sword"}
+    for name in ("train", "validation", "test"):
+        (split_dir / f"{name}.jsonl").write_text(
+            '{"asset_id":"asset_current"}\n', encoding="utf-8"
+        )
+    unrelated = split_dir / "split_manifest.jsonl"
+    unrelated.write_text('{"asset_id":"asset_removed"}\n', encoding="utf-8")
+    monkeypatch.setattr(finalize_dataset, "SPLIT_DIRECTORIES", {"pixel_art": split_dir})
+
+    finalize_dataset.sync_splits({"asset_current": canonical})
+
+    assert json.loads(unrelated.read_text(encoding="utf-8"))["asset_id"] == "asset_removed"
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import finalize_dataset
@@ -144,6 +174,26 @@ def test_current_release_documents_describe_regenerated_split_counts() -> None:
     assert "train 121개, validation 15개, test 14개" in rendered_policy
 
 
+def test_current_pixel_art_split_summary_matches_release_jsonl() -> None:
+    repo = Path(__file__).resolve().parents[1]
+    split_dir = repo / "data/splits"
+    summary = json.loads((split_dir / "split_summary.json").read_text(encoding="utf-8"))
+
+    expected_counts = {
+        name: len(
+            [
+                line
+                for line in (split_dir / f"{name}.jsonl").read_text(encoding="utf-8-sig").splitlines()
+                if line.strip()
+            ]
+        )
+        for name in ("train", "validation", "test")
+    }
+
+    assert summary["counts"] == expected_counts
+    assert summary["total"] == sum(expected_counts.values())
+
+
 def test_ground_truth_rebuild_also_refreshes_release_docs(monkeypatch) -> None:
     calls: list[str] = []
     monkeypatch.setattr(rebuild_ground_truth_and_manifest, "jl", lambda _path: [])
@@ -164,3 +214,18 @@ def test_ground_truth_rebuild_also_refreshes_release_docs(monkeypatch) -> None:
     rebuild_ground_truth_and_manifest.main()
 
     assert calls == ["artifacts", "docs"]
+
+
+def test_final_backend_handoff_names_one_authoritative_search_service() -> None:
+    handoff = ROOT / "docs/BACKEND_VECTORDB_HANDOFF_KO.md"
+
+    assert handoff.exists()
+    text = handoff.read_text(encoding="utf-8")
+    assert "from src.retrieval.search_service_adapter import WeaponSearchService" in text
+    assert "src.retrieval.search_service.WeaponSearchService" in text
+    assert "베이스라인" in text
+    assert "storage/indexes/weapons.faiss" in text
+    assert "storage/indexes/weapon_ids.json" in text
+    assert "서버 시작 시 한 번" in text
+    assert "CUSTOM_ADAPTER_HANDOFF_KO.md" in text
+    assert "AI_SEARCH_API_HANDOFF_KO.md" in text

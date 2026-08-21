@@ -1,0 +1,96 @@
+===POST /search/text===
+{
+  "query": "붉은 불꽃 검",
+  "top_k": 5,
+  "filters": {
+    "category": "sword",
+    "colors": ["red"],
+    "elements": ["fire"]
+  }
+}
+
+{
+  "query": "medieval silver sword",
+  "top_k": 10,
+  "filters": {
+    "category": "sword",
+    "colors": ["silver"],
+    "style": "medieval"
+  }
+}
+
+{
+  "query": "holy golden weapon",
+  "top_k": 10,
+  "filters": {
+    "colors": ["gold"],
+    "elements": ["holy"]
+  }
+}
+
+{
+  "query": "legendary sword",
+  "top_k": 10,
+  "filters": {
+    "category": "sword",
+    "grade": "legendary"
+  }
+}
+
+{ "query": "sword", "top_k": 4, "offset": 0 }
+{ "query": "sword", "top_k": 4, "offset": 4 }
+
+===GET /search/text===
+/search/text?query=파란 검&top_k=5
+/search/text?query=sword&top_k=5&color=blue&element=ice
+/search/text?query=창&top_k=5
+/search/text?query=표창&top_k=5
+
+===POST /search/image===
+image: data/processed/pixel_art/asset_000057.png
+top_k: 5
+category: arrow
+element: fire
+
+image: data/processed/pixel_art/asset_000057.png
+top_k: 5
+include_self: true
+
+===POST /search/multimodal===
+image: data/processed/pixel_art/asset_001018.png
+query: fire arrow
+image_weight: 0.8
+text_weight: 0.2
+top_k: 5
+
+image: data/processed/pixel_art/asset_001018.png
+query: 금색으로 바꿔줘
+top_k: 5
+
+image: data/processed/pixel_art/asset_001018.png
+query: 얼음 속성 파란색으로
+image_weight: 0.2
+text_weight: 0.8
+top_k: 5
+
+===GET /assets/{asset_id}===
+asset_000057
+asset_001018
+
+===GET /filters===
+category      sword, shield, axe, dagger, bow, staff, arrow, spear,
+              crossbow, mace, shuriken, hammer, scythe, gun
+visual_style  pixel_art, illustration, rendered_icon
+style         medieval, fantasy, holy_fantasy, dark_fantasy, eastern,
+              nature_fantasy, modern
+grade         common, legendary
+handedness    one_handed, two_handed, not_applicable
+colors        silver, brown, black, gray, gold, white, red, blue, green,
+              orange, yellow, bronze, purple, cyan
+materials     steel, wood, leather, bronze, gold, crystal, cloth, bone,
+              obsidian, silver, stone, chain
+elements      dark, holy, fire, ice, nature, poison, lightning, water, wind
+
+category / style 은 값을 하나만 받습니다.
+handedness 는 two-handed, two_handed 둘 다 됩니다.
+color, element 는 colors, elements 의 별칭입니다.

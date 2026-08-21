@@ -1,0 +1,45 @@
+{
+  "status": "success",
+  "image_directory": "D:\\2. Fantasy_Weapon_Search-main\\processed\\pixel_art_imsy",
+  "asset_count": 10,
+  "asset_ids": [
+    "asset_000057",
+    "asset_000058",
+    "asset_000059",
+    "asset_000060",
+    "asset_000061",
+    "asset_000062",
+    "asset_000063",
+    "asset_000064",
+    "asset_000065",
+    "asset_000066"
+  ],
+  "model": {
+    "name": "ViT-B-32",
+    "pretrained": "laion2b_s34b_b79k",
+    "device": "cpu",
+    "integration_status": "temporary_baseline"
+  },
+  "embedding": {
+    "shape": [
+      10,
+      512
+    ],
+    "dtype": "float32",
+    "l2_normalized": true
+  },
+  "faiss": {
+    "index_type": "IndexFlatIP",
+    "ntotal": 10,
+    "dimension": 512
+  },
+  "timing_seconds": {
+    "model_load": 6.064216,
+    "image_read": 0.059339,
+    "embedding_only": 0.743285,
+    "average_embedding_per_image": 0.074329,
+    "index_build": 8e-05,
+    "artifact_write": 0.002265,
+    "total": 6.869412
+  }
+}

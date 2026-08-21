@@ -28,6 +28,8 @@ SCALAR_FILTERS = {
     "subcategory",
     "primary_color",
     "grade",
+    "style",
+    "handedness",
 }
 LIST_FILTERS = {
     "colors",
@@ -81,6 +83,7 @@ class WeaponSearchService:
                 MODEL_NAME,
                 pretrained=PRETRAINED,
                 device=self.device,
+                cache_dir=str(self.root / ".cache/openclip"),
             )
         )
         self.tokenizer = open_clip.get_tokenizer(MODEL_NAME)
@@ -129,10 +132,12 @@ class WeaponSearchService:
             return
 
         self.translation_tokenizer = AutoTokenizer.from_pretrained(
-            TRANSLATION_MODEL
+            TRANSLATION_MODEL,
+            cache_dir=str(self.root / ".cache/translation"),
         )
         self.translation_model = AutoModelForSeq2SeqLM.from_pretrained(
-            TRANSLATION_MODEL
+            TRANSLATION_MODEL,
+            cache_dir=str(self.root / ".cache/translation"),
         ).to(self.device)
         self.translation_model.eval()
 

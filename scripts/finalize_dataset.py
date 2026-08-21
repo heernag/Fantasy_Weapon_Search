@@ -95,7 +95,7 @@ def refresh_split_summary(summary_path: Path, split_dir: Path, style: str) -> di
 
 def refresh_split_summaries() -> dict[str, dict[str, Any]]:
     results: dict[str, dict[str, Any]] = {}
-    for style in ("illustration", "rendered_icon"):
+    for style in ("pixel_art", "illustration", "rendered_icon"):
         split_dir = SPLIT_DIRECTORIES[style]
         results[style] = refresh_split_summary(split_dir / "split_summary.json", split_dir, style)
     return results
@@ -190,7 +190,8 @@ def refresh_evaluation_summaries() -> dict[str, dict[str, Any]]:
 
 def sync_splits(meta_by_id: dict[str, dict[str, Any]]) -> None:
     for split_dir in SPLIT_DIRECTORIES.values():
-        for path in split_dir.glob("*.jsonl"):
+        for split_name in SPLIT_NAMES:
+            path = split_dir / f"{split_name}.jsonl"
             rows = read_jsonl(path)
             out = []
             for old in rows:
