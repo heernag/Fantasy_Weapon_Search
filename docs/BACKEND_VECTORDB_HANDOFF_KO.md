@@ -157,19 +157,18 @@ API와 분리된 가상환경을 쓰세요.
   응답에서 사라지기 때문입니다. 되돌리는 방법은 `app/schemas.py`의 `SearchHit`
   주석에 적어 두었습니다. 입력 필터는 문자열과 목록을 모두 받으므로 규격대로
   보내도 동작합니다.
-- `elements` 태그 자체가 274개에만 채워져 있습니다. 태그 보강은 2번
-  데이터·평가 담당의 작업입니다.
+- `elements` 태그가 1,391개 중 274개에만 채워져 있습니다. 속성 필터를 걸면
+  후보가 그만큼 줄어듭니다.
 - `requirements.txt`와 `requirements-ai.txt`의 numpy 핀이 서로 다릅니다
-  (1.26.4 / 2.4.4). 한쪽으로 통일하거나 `requirements-ai.txt`에서 numpy 핀을
-  빼는 편이 안전합니다. 결정 전까지는 위 7절의 설치 순서를 지켜 주세요.
+  (1.26.4 / 2.4.4). API 환경은 `requirements.txt`만으로 동작하며, 두 파일을
+  겹쳐 설치하면 numpy가 2.x로 올라가 faiss·torch가 깨질 수 있습니다.
 - `scripts/build_index.py`는 베이스라인 임베더로 `storage/indexes/weapons.faiss`를
-  덮어쓰기 때문에 **실행 진입점을 주석 처리해 막아 두었습니다.** 인덱스를 다시
-  만들 때는 `scripts/build_final_index.py`를 쓰세요.
-- **Docker 컨테이너는 매 기동마다 모델을 다시 내려받습니다.** `FWS_MODEL_CACHE`와
-  `FWS_TRANSLATION_CACHE`를 검색 서비스가 읽지 않고 `/app/.cache`에 하드코딩해
-  두어, `VOLUME`으로 잡은 `/models/*`가 비어 있기 때문입니다. 동작에는 문제가
-  없고 기동만 느립니다. 고치는 두 가지 방법을 `Dockerfile` 주석에 적어 두었으니,
-  오프라인 환경에서 시연한다면 그 전에 (가) 안을 적용하세요.
-- **모델 서버 분리는 선택 사항입니다.** 현재는 API 프로세스가 모델을 직접 올려
-  연결하는 방식이고, 물리적으로 분리된 모델 서버가 필요해지면 바꿀 지점을
-  `app/main.py`의 `create_search_service` 주석에 적어 두었습니다.
+  덮어쓰기 때문에 실행 진입점을 주석 처리해 두었습니다. 인덱스 재생성은
+  `scripts/build_final_index.py`가 담당합니다.
+- 모델 캐시 경로는 검색 서비스가 `.cache/openclip`·`.cache/translation`으로
+  하드코딩합니다. `Dockerfile`의 `VOLUME`은 그 경로(`/app/.cache`)에 맞춰
+  두었으므로, 볼륨을 붙이면 컨테이너를 다시 만들어도 모델을 다시 받지 않습니다.
+  `FWS_MODEL_CACHE` 같은 환경변수로는 위치를 바꿀 수 없습니다.
+- 모델은 API 프로세스가 직접 올려 연결합니다. 물리적으로 분리된 모델 서버는
+  아니며, 분리할 경우 바꿀 지점은 `app/main.py`의 `create_search_service`
+  주석에 적어 두었습니다.

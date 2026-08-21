@@ -186,7 +186,7 @@ class SearchHit(BaseModel):
     # `test_multi_valued_attributes_stay_lists_in_the_response`와
     # tests/test_official_service_wiring.py의
     # `hit["element"] == hit["elements"]` 단언을 함께 수정한다.
-    # 되돌리기 전에 값이 둘 이상인 에셋을 어떻게 표현할지부터 정해야 한다.
+    # 값이 둘 이상인 에셋은 이 배열 형태에서만 온전히 실린다.
     color: list[str] = Field(default_factory=list)
     element: list[str] = Field(default_factory=list)
     source: str | None = None

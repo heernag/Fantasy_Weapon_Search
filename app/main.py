@@ -50,7 +50,7 @@ def csv_values(value: str | None) -> list[str]:
 # 되돌리려면(별칭 폐기) 이 상수를 비우고 `build_filters`의 별칭 병합 루프,
 # 네 엔드포인트의 `categories`/`styles` 인자, `SearchFilters`의
 # `normalize_legacy_names`, 그리고 이를 쓰는 테스트를 함께 지우면 된다.
-# 폐기 전에 프론트엔드가 정식 이름(`category`/`style`)만 쓰는지 확인해야 한다.
+# 폐기하면 이 이름으로 보내던 요청은 400을 받는다.
 LEGACY_FILTER_NAMES = ("categories", "styles")
 
 
@@ -196,7 +196,7 @@ def create_search_service(settings):
        프로세스에서 객체를 재사용하는 형태를 전제한 문구다.
     2. 어댑터 서비스는 OpenCLIP 가중치·어댑터 체크포인트·FAISS 인덱스·메타데이터를
        한 객체가 함께 들고 있다(src/retrieval/search_service_adapter.py). 모델만
-       떼어내면 인덱스와 임베딩을 어느 쪽이 소유할지부터 다시 정해야 한다.
+       떼어내면 인덱스와 임베딩의 소유 위치도 함께 옮겨간다.
 
     별도 모델 서버로 분리하기로 하면 —
     - 바꿀 지점은 이 함수 하나다. WeaponSearchService 대신 같은 메서드 이름
@@ -205,7 +205,8 @@ def create_search_service(settings):
     - 다만 /health가 읽는 `faiss_index.ntotal`/`.d`(app/main.py)와 기동 시
       service_manifest 검증(app/service_manifest.py의 `_index_and_ids`)이 인덱스
       객체에 직접 접근하므로, 원격 서비스라면 이 두 곳을 원격 조회로 바꿔야 한다.
-    - 인덱스를 API와 모델 서버 중 어디에 둘지 1번 담당과 먼저 합의할 것.
+    - 인덱스를 API 쪽에 두느냐 모델 서버 쪽에 두느냐에 따라 위 두 지점의 구현이
+      달라진다.
     """
     return WeaponSearchService(
         root=settings.project_root,
