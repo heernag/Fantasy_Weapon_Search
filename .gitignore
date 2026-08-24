@@ -236,3 +236,22 @@ indexes/**
 # Local experiment outputs
 outputs/**
 reports/generated/**
+
+# 이미 커밋된 처리 이미지는 계속 포함한다
+!data/processed/illustration/
+!data/processed/illustration/*.png
+!data/processed/rendered_icon/
+!data/processed/rendered_icon/*.png
+# 서비스 기동에 필요한 인덱스는 예외로 포함
+!storage/indexes/weapons.faiss
+# 검색 로그는 폴더만 유지
+storage/logs/*.jsonl
+# 개인 환경·잔재
+.docx_qa/
+.claude/
+*.lnk
+
+# 작업 중 생긴 사본·임시 출력
+check.txt
+stat.txt
+r?.txt
