@@ -1,0 +1,33 @@
+{
+  "created_on": "2026-08-13",
+  "dataset_split": "test",
+  "candidate_asset_count": 91,
+  "concept_count": 40,
+  "query_count": 80,
+  "language_counts": {
+    "ko": 40,
+    "en": 40
+  },
+  "query_type_concept_counts": {
+    "color_change": 16,
+    "element_change": 10,
+    "material_change": 10,
+    "style_change": 4
+  },
+  "category_concept_counts": {
+    "axe": 8,
+    "bow": 10,
+    "dagger": 4,
+    "shield": 8,
+    "staff": 4,
+    "sword": 6
+  },
+  "source_image_count": 26,
+  "maximum_concepts_per_source_image": 2,
+  "ground_truth": {
+    "relevance": "binary",
+    "minimum_relevant_assets": 1,
+    "maximum_relevant_assets": 2,
+    "average_relevant_assets": 1.025
+  }
+}

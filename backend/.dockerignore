@@ -1,0 +1,16 @@
+.venv
+.pytest_cache
+# 모델 캐시 1.7GB. 이미지에 넣지 않고 볼륨으로 붙인다(Dockerfile의 VOLUME 참고).
+.cache
+__pycache__
+*.pyc
+.git
+.claude
+docs
+reports
+data/evaluation
+data/splits
+data/raw
+data/interim
+storage/logs/*.jsonl
+

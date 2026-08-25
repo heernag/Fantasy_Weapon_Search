@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "service_version": "final-adapter-v1",
+  "model": {
+    "name": "ViT-B-16",
+    "pretrained": "laion2b_s34b_b88k",
+    "adapter_epoch": 8,
+    "embedding_dimension": 512,
+    "dtype": "float32",
+    "normalized": true
+  },
+  "asset_count": 1391,
+  "asset_ids_sha256": "b55ea6a2ccb6a52ffc7dd7a1a3a3aa761a4683cf6b99741fb2e83c5c4cd96e45",
+  "files": {
+    "adapter": {
+      "path": "models/clip_adapter_vit_b16/best_adapter.pt",
+      "sha256": "d2568610d5ae8fc05a8516eeff6148c5b987e60205c26e8b63287f9c2fd3c881"
+    },
+    "embedding": {
+      "path": "embeddings/ViT-B-16_laion2b_s34b_b88k_adapter/image_embeddings.npy",
+      "sha256": "c458da48f2223e34dc7ecb3c99fd8a51c58c3625d08ece309d3fdc3dfe3b4a9b"
+    },
+    "asset_ids": {
+      "path": "embeddings/ViT-B-16_laion2b_s34b_b88k_adapter/asset_ids.json",
+      "sha256": "0a1c6043628c45ba9c996bd5566eac5401efcf83c680427367f467b9dfd1e8f0"
+    },
+    "metadata": {
+      "path": "data/metadata/final_search_assets.jsonl",
+      "sha256": "6f6ce2eae6a2c79e8ef4f87c6eecff2a7b1c7c9d015e879aea4a78f6bc1cdea2"
+    },
+    "index": {
+      "path": "storage/indexes/weapons.faiss",
+      "sha256": "b3241f1df9345bd0dc55fcbcfa2f7ea8647a450e80de6a1c8b0402c2eb79553e"
+    }
+  }
+}

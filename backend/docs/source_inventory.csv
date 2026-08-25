@@ -1,0 +1,9 @@
+source_id,source_platform,pack_name,source_url,creator,license,license_url,art_type,visual_style,estimated_weapon_count,status,notes
+OGA_001,OpenGameArt,CC0 Sword Icons,https://opengameart.org/content/cc0-sword-icons,AntumDeluge,CC0-1.0,https://creativecommons.org/publicdomain/zero/1.0/,2D,pixel_art,,candidate,여러 CC0 출처에서 수집된 32x32 검 아이콘
+OGA_002,OpenGameArt,CC0 Axe Icons,https://opengameart.org/content/cc0-axe-icons,AntumDeluge,CC0-1.0,https://creativecommons.org/publicdomain/zero/1.0/,2D,pixel_art,,candidate,도끼·폴암 계열 아이콘
+OGA_003,OpenGameArt,Swords and Staffs,https://opengameart.org/content/swords-and-staffs,SnoopethDuckDuck,CC0-1.0,https://creativecommons.org/publicdomain/zero/1.0/,2D,pixel_art,,candidate,검·지팡이·도끼·창 포함
+OGA_004,OpenGameArt,Fantasy Weapons And Shields,https://opengameart.org/content/fantasy-weapons-and-shields,ScratchIO,CC0-1.0,https://creativecommons.org/publicdomain/zero/1.0/,2D,pixel_art,,candidate,판타지 무기와 방패
+OGA_005,OpenGameArt,OSARE weapon icons,https://opengameart.org/content/osare-weapon-icons,Blarumyrran,CC0-1.0,https://creativecommons.org/publicdomain/zero/1.0/,2D,illustration,,candidate,검·방패·지팡이·활 포함
+OGA_006,OpenGameArt,Weapon icons,https://opengameart.org/content/weapon-icons-0,Tom L,CC0-1.0,https://creativecommons.org/publicdomain/zero/1.0/,2D,icon,,candidate,일반 무기와 원소 지팡이 포함
+OGA_007,OpenGameArt,Fantasy RPG Icons,https://opengameart.org/content/fantasy-rpg-icons-0,drummyfish,CC0-1.0,https://creativecommons.org/publicdomain/zero/1.0/,2D,illustration,32,candidate,128x128 아이콘 32개이며 비무기 항목 포함
+ITCH_001,itch.io,FREE 160+ weapons,https://timberwolfgames.itch.io/freepixelsweapons,TimberwolfGames,CC0-1.0,https://creativecommons.org/publicdomain/zero/1.0/,2D,pixel_art,170,candidate,판타지·중세 무기 170개

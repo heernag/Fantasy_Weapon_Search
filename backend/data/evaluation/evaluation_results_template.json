@@ -1,0 +1,22 @@
+{
+  "evaluation_set": "bilingual_balanced_v2_style_handedness",
+  "created_on": "2026-08-07",
+  "status": "not_run",
+  "candidate_split": "test",
+  "query_count": 160,
+  "metrics": {
+    "Recall@1": null,
+    "Recall@5": null,
+    "Recall@10": null,
+    "Precision@5": null,
+    "Precision@10": null,
+    "MRR": null,
+    "mAP": null,
+    "nDCG@10": null
+  },
+  "by_language": {
+    "ko": {},
+    "en": {}
+  },
+  "query_results": []
+}

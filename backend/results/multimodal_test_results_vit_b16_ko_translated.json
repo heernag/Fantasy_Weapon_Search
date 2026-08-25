@@ -1,0 +1,61 @@
+{
+  "dataset": "multimodal_test",
+  "language": "ko",
+  "model_name": "ViT-B-16",
+  "pretrained": "laion2b_s34b_b88k",
+  "translation_model": "Helsinki-NLP/opus-mt-ko-en",
+  "candidate_count": 91,
+  "weight_results": [
+    {
+      "image_weight": 0.4,
+      "text_weight": 0.6,
+      "overall": {
+        "query_count": 40,
+        "Recall@1": 0.15,
+        "Recall@5": 0.375,
+        "Recall@10": 0.5,
+        "MRR": 0.283699,
+        "mAP": 0.283811
+      },
+      "by_query_type": {
+        "color_change": {
+          "query_count": 16,
+          "Recall@1": 0.25,
+          "Recall@5": 0.5625,
+          "Recall@10": 0.6875,
+          "MRR": 0.396085,
+          "mAP": 0.396364
+        },
+        "element_change": {
+          "query_count": 10,
+          "Recall@1": 0.1,
+          "Recall@5": 0.3,
+          "Recall@10": 0.4,
+          "MRR": 0.23467,
+          "mAP": 0.23467
+        },
+        "material_change": {
+          "query_count": 10,
+          "Recall@1": 0.0,
+          "Recall@5": 0.1,
+          "Recall@10": 0.2,
+          "MRR": 0.100146,
+          "mAP": 0.100146
+        },
+        "style_change": {
+          "query_count": 4,
+          "Recall@1": 0.25,
+          "Recall@5": 0.5,
+          "Recall@10": 0.75,
+          "MRR": 0.415616,
+          "mAP": 0.415616
+        }
+      }
+    }
+  ],
+  "selected_weight": {
+    "image_weight": 0.4,
+    "text_weight": 0.6,
+    "selection_rule": "fixed at image 0.4 / text 0.6 from validation"
+  }
+}

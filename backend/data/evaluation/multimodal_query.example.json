@@ -1,0 +1,10 @@
+{
+  "query_image": "data/evaluation/images/query_0001.png",
+  "query_text": "황금색 불 속성 양손검",
+  "image_weight": 0.6,
+  "text_weight": 0.4,
+  "filters": {
+    "category": "sword"
+  },
+  "top_k": 20
+}

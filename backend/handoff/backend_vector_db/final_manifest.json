@@ -1,0 +1,136 @@
+{
+  "status": "final",
+  "version": "final-2026-08-12",
+  "frozen_at": "2026-08-12T00:00:00+09:00",
+  "source_metadata": {
+    "path": "final_search_assets_pretty.json",
+    "sha256": "7726cea31e70c3d0f39a43da15befe94cf6ca1fd0f6b382b7e901c781e53f844",
+    "asset_count": 1391
+  },
+  "style_counts": {
+    "pixel_art": 957,
+    "illustration": 284,
+    "rendered_icon": 150
+  },
+  "splits": {
+    "pixel_art": {
+      "counts": {
+        "train": 772,
+        "validation": 94,
+        "test": 91
+      },
+      "total": 957,
+      "files": {
+        "train": {
+          "count": 772,
+          "sha256": "dab702a62f5abe2433621b2f6a47dcf8ea8ae3f8ab1fef85d7f7a512566c9b53",
+          "path": "splits/pixel_art/train.jsonl"
+        },
+        "validation": {
+          "count": 94,
+          "sha256": "d54d47e88dc65917c516f1fd0d9a6263253bc71defbb62cd830ccf1748917e14",
+          "path": "splits/pixel_art/validation.jsonl"
+        },
+        "test": {
+          "count": 91,
+          "sha256": "b1cbd9dab82e0dbcb452aba5c11c6a5dbf4eae1cb84290949f2da23ba9c6c1d4",
+          "path": "splits/pixel_art/test.jsonl"
+        }
+      },
+      "train": {
+        "count": 772,
+        "sha256": "dab702a62f5abe2433621b2f6a47dcf8ea8ae3f8ab1fef85d7f7a512566c9b53"
+      },
+      "validation": {
+        "count": 94,
+        "sha256": "d54d47e88dc65917c516f1fd0d9a6263253bc71defbb62cd830ccf1748917e14"
+      },
+      "test": {
+        "count": 91,
+        "sha256": "b1cbd9dab82e0dbcb452aba5c11c6a5dbf4eae1cb84290949f2da23ba9c6c1d4"
+      }
+    },
+    "illustration": {
+      "counts": {
+        "train": 229,
+        "validation": 18,
+        "test": 37
+      },
+      "total": 284,
+      "files": {
+        "train": {
+          "count": 229,
+          "sha256": "ab193fe7a61b19ad80c1c32f2223ead0ff96d6bf6b2a75afdfb50960c9ac93c7",
+          "path": "splits/illustration/train.jsonl"
+        },
+        "validation": {
+          "count": 18,
+          "sha256": "fd3317c212318ecb6553a56356fa1dcf524515f033d1c52e0a30c02dd484a89b",
+          "path": "splits/illustration/validation.jsonl"
+        },
+        "test": {
+          "count": 37,
+          "sha256": "500c6721384052d7b21f0c72357767641c707cfa826b9621f85d1cbb44829c12",
+          "path": "splits/illustration/test.jsonl"
+        }
+      },
+      "train": {
+        "count": 229,
+        "sha256": "ab193fe7a61b19ad80c1c32f2223ead0ff96d6bf6b2a75afdfb50960c9ac93c7"
+      },
+      "validation": {
+        "count": 18,
+        "sha256": "fd3317c212318ecb6553a56356fa1dcf524515f033d1c52e0a30c02dd484a89b"
+      },
+      "test": {
+        "count": 37,
+        "sha256": "500c6721384052d7b21f0c72357767641c707cfa826b9621f85d1cbb44829c12"
+      }
+    },
+    "rendered_icon": {
+      "counts": {
+        "train": 121,
+        "validation": 15,
+        "test": 14
+      },
+      "total": 150,
+      "files": {
+        "train": {
+          "count": 121,
+          "sha256": "19a4da242b35c8ceabefaf023301f12a1eff610e3ff65d78547375ec3881f1c8",
+          "path": "splits/rendered_icon/train.jsonl"
+        },
+        "validation": {
+          "count": 15,
+          "sha256": "5a936791c821e42d6c450f124f3cc2be92530e06b4852066abe83ec9e79d3e92",
+          "path": "splits/rendered_icon/validation.jsonl"
+        },
+        "test": {
+          "count": 14,
+          "sha256": "0bd982fc45ee9a3f48173585a3cf4562eebd97e0f3c37981e881c299f13bab7d",
+          "path": "splits/rendered_icon/test.jsonl"
+        }
+      },
+      "train": {
+        "count": 121,
+        "sha256": "19a4da242b35c8ceabefaf023301f12a1eff610e3ff65d78547375ec3881f1c8"
+      },
+      "validation": {
+        "count": 15,
+        "sha256": "5a936791c821e42d6c450f124f3cc2be92530e06b4852066abe83ec9e79d3e92"
+      },
+      "test": {
+        "count": 14,
+        "sha256": "0bd982fc45ee9a3f48173585a3cf4562eebd97e0f3c37981e881c299f13bab7d"
+      }
+    }
+  },
+  "validation": {
+    "metadata_ids_unique": true,
+    "split_union_matches_metadata": true,
+    "cross_split_overlap_count": 0,
+    "korean_encoding_validated": true,
+    "image_links_validated": true
+  },
+  "next_consumer": "CLIP embedding generation and Vector DB ingestion"
+}

@@ -1,0 +1,14 @@
+{
+  "model_name": "ViT-B-16",
+  "pretrained": "laion2b_s34b_b88k",
+  "device": "cpu",
+  "embedding_dimension": 512,
+  "normalized": true,
+  "asset_count": 1391,
+  "batch_size": 16,
+  "dtype": "float32",
+  "metadata_path": "data/metadata/final_search_assets.jsonl",
+  "metadata_sha256": "4659081e3658da8a4efb19473dcea7d2242f3f0d19e851a39280c285cbd40500",
+  "generated_at": "2026-08-14T11:48:27.978978",
+  "elapsed_seconds": 337.29
+}
