@@ -1,0 +1,21 @@
+# Dependencies and Next.js build output
+node_modules/
+.next/
+out/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Logs and local operating-system files
+*.log
+.DS_Store
+Thumbs.db
+
+# Local source data and internal planning documents
+null_fields_image/
+null_fields_json/
+null_fields_json.zip
+2D_판타지_무기_멀티모달_검색_시스템_기획안_최종.docx
+역할 분담.txt
