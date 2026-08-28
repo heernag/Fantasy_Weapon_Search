@@ -1,0 +1,2 @@
+{"date": "2026-08-24", "dataset": "multimodal_validation", "recall_at_10": 0.675, "mrr": 0.456374, "ndcg": 0.487211}
+{"date": "2026-08-25", "dataset": "multimodal_validation", "recall_at_10": 0.675, "mrr": 0.456374, "ndcg": 0.487211}
