@@ -55,6 +55,12 @@ class Settings(BaseSettings):
     # translation_cache: Path = Path(".cache/translation")
     cors_origins: str = ""
 
+    # 기본은 꺼져 있다. 켜면 서버 시작 시(요청을 받기 전) 한국어 번역 모델을
+    # 한 번 실제로 태워 첫 한국어 검색이 느려지는 것을 막는다. 로컬 개발·테스트에서
+    # TestClient를 반복 생성할 때마다 이 비용(수 초)을 물지 않도록 기본값을
+    # 꺼둔다. 운영 배포에서는 켜서 실행한다(Dockerfile 기본값 참고).
+    preload_translation_model: bool = False
+
     @property
     def cors_origin_list(self) -> list[str]:
         return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]

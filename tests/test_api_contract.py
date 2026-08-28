@@ -222,8 +222,53 @@ def test_text_search_pages_without_repeating_results():
 
     assert not set(first_ids) & set(second_ids)
     assert first_ids + second_ids == combined_ids
-    # 전체 후보 수를 함께 주므로 프론트엔드가 마지막 페이지를 계산할 수 있다.
+    # candidate_count는 필터를 통과한 전체 개수일 뿐, 페이지 계산에는
+    # retrievable_count(min(candidate_count, 100))를 써야 한다.
     assert first.json()["candidate_count"] >= len(combined_ids)
+    assert first.json()["retrievable_count"] == min(first.json()["candidate_count"], 100)
+
+
+def test_retrievable_count_matches_candidate_count_when_small():
+    # 좁은 필터라 후보가 100건 미만이면 두 값이 같아야 한다.
+    with TestClient(app) as client:
+        response = client.post(
+            "/search/text",
+            json={"query": "sword", "top_k": 1,
+                  "filters": {"category": "sword", "elements": ["ice"]}},
+        )
+
+    payload = response.json()
+    assert response.status_code == 200
+    assert payload["candidate_count"] < 100
+    assert payload["retrievable_count"] == payload["candidate_count"]
+
+
+def test_retrievable_count_caps_at_the_ranked_window_when_large():
+    # 넓은 필터라 후보가 100건을 넘으면 retrievable_count는 100에서 멈춰야
+    # 한다. candidate_count로 마지막 페이지를 계산하면 offset+top_k>100인
+    # 요청을 만들게 되어 400을 받는다(프론트가 실제로 겪은 문제).
+    with TestClient(app) as client:
+        response = client.post("/search/text", json={"query": "sword", "top_k": 1})
+
+    payload = response.json()
+    assert response.status_code == 200
+    assert payload["candidate_count"] > 100
+    assert payload["retrievable_count"] == 100
+
+
+def test_offset_boundary_at_72_and_96_stay_within_the_ranked_window():
+    # 검증 항목: offset 72와 96 경계. 96 + 4 = 100은 허용 상한이고,
+    # 97 + 4 = 101부터 거절된다.
+    with TestClient(app) as client:
+        at_72 = client.post("/search/text", json={"query": "sword", "top_k": 4, "offset": 72})
+        at_96 = client.post("/search/text", json={"query": "sword", "top_k": 4, "offset": 96})
+        at_97 = client.post("/search/text", json={"query": "sword", "top_k": 4, "offset": 97})
+
+    assert at_72.status_code == 200
+    assert at_96.status_code == 200
+    assert at_97.status_code == 400
+    assert at_72.json()["retrievable_count"] == 100
+    assert at_96.json()["retrievable_count"] == 100
 
 
 def test_ranked_window_matches_the_search_service_limit():

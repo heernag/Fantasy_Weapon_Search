@@ -31,3 +31,20 @@ def test_final_model_bundle_defaults_are_aligned():
         "embeddings/ViT-B-16_laion2b_s34b_b88k_adapter/image_embeddings.npy"
     )
     assert settings.service_manifest_path == Path("storage/indexes/service_manifest.json")
+
+
+def test_translation_preload_defaults_off():
+    # 로컬 개발·테스트에서 서버(TestClient 포함)를 반복 기동할 때마다 번역 모델
+    # 로딩 비용을 물지 않도록 기본값은 꺼져 있어야 한다. 운영은 Dockerfile의
+    # FWS_PRELOAD_TRANSLATION_MODEL=true로 켠다.
+    settings = Settings(_env_file=None)
+
+    assert settings.preload_translation_model is False
+
+
+def test_translation_preload_can_be_enabled_via_env(monkeypatch):
+    monkeypatch.setenv("FWS_PRELOAD_TRANSLATION_MODEL", "true")
+
+    settings = Settings(_env_file=None)
+
+    assert settings.preload_translation_model is True
