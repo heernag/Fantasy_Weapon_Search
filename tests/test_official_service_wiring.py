@@ -80,6 +80,73 @@ class PagingOfficialService(FakeOfficialService):
         }
 
 
+def test_retrievable_count_is_capped_at_the_ranked_window(tmp_path):
+    # candidate_count가 순위 상한(100)보다 크면 retrievable_count는 100에서
+    # 멈춰야 한다. candidate_count를 그대로 쓰면 프론트가 offset+top_k>100인
+    # 요청을 만들어 400을 받는다.
+    from app.official_search import OfficialSearchAdapter
+
+    settings = get_settings()
+    repository = AssetRepository(settings.absolute(settings.metadata_path))
+
+    class WideCandidateService(FakeOfficialService):
+        def search_text(self, text, top_k=10, filters=None):
+            self.calls.append(("text", text, top_k, filters))
+            return {
+                "search_type": "text",
+                "query_text": text,
+                "translated_text": None,
+                "candidate_count": 500,
+                "results": [{"asset_id": "asset_000057", "score": 0.9}],
+            }
+
+    adapter = OfficialSearchAdapter(WideCandidateService(), repository, tmp_path / "search.jsonl")
+
+    response = adapter.search_text(
+        "sword", top_k=1, offset=0, filters=SearchFilters(),
+        request_started=time.perf_counter(), service_version="test-v1",
+    )
+
+    assert response["candidate_count"] == 500
+    assert response["retrievable_count"] == 100
+
+
+def test_preload_translation_service_is_off_by_default():
+    import app.main as main
+    from app.config import Settings
+
+    calls = []
+
+    class RecordingService:
+        def search_text(self, text, top_k=10):
+            calls.append((text, top_k))
+
+    warmed = main.preload_translation_service(RecordingService(), Settings(_env_file=None))
+
+    assert warmed is False
+    assert calls == []
+
+
+def test_preload_translation_service_warms_the_model_once_enabled(monkeypatch):
+    import app.main as main
+    from app.config import Settings
+
+    calls = []
+
+    class RecordingService:
+        def search_text(self, text, top_k=10):
+            calls.append((text, top_k))
+
+    monkeypatch.setenv("FWS_PRELOAD_TRANSLATION_MODEL", "true")
+    settings = Settings(_env_file=None)
+
+    warmed = main.preload_translation_service(RecordingService(), settings)
+
+    assert warmed is True
+    assert len(calls) == 1
+    assert calls[0][1] == 1  # top_k=1이면 충분하다
+
+
 def test_fastapi_factory_constructs_official_adapter_service(monkeypatch):
     import app.main as main
 
@@ -127,6 +194,8 @@ def test_official_adapter_preserves_response_and_log_contract(tmp_path):
     }
     assert response["query_type"] == "text"
     assert response["top_k"] == 1
+    # FakeOfficialService의 candidate_count(1)가 100보다 작으므로 그대로 나온다.
+    assert response["retrievable_count"] == 1
     assert response["elapsed_ms"] >= response["search_elapsed_ms"] >= 0
     hit = response["results"][0]
     assert hit["metadata"]["asset_id"] == "asset_000057"

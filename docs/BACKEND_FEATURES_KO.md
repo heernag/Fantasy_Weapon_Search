@@ -164,7 +164,6 @@ GET /filters
 세 검색 방식 모두 `top_k`(페이지 크기)와 `offset`(건너뛸 개수)을 받습니다.
 
 - `top_k` 1~100, `offset` 0 이상, **`offset + top_k`는 100 이하**
-- 응답의 `candidate_count`가 필터를 통과한 전체 개수라 마지막 페이지를 계산할 수 있습니다
 - 페이지를 나눠 받아도 한 번에 받은 결과와 순서가 같습니다
 
 ```
@@ -172,6 +171,19 @@ top_k=4, offset=0  +  top_k=4, offset=4   ==   top_k=8, offset=0
 ```
 
 `offset`이 후보 수를 넘으면 빈 목록과 함께 200을 돌려줍니다.
+
+**마지막 페이지 계산에는 `retrievable_count`를 쓰세요.** `candidate_count`는 필터를
+통과한 전체 개수(최대 1,391)이고, 실제로 `offset`/`top_k`로 꺼낼 수 있는 상한은
+100건입니다. `candidate_count`로 마지막 페이지를 계산하면 100건을 넘는 순간부터
+`offset + top_k > 100`인 요청을 만들게 되어 400을 받습니다.
+
+```
+candidate_count = 500   (필터를 통과한 전체 개수)
+retrievable_count = 100  (offset/top_k로 실제 꺼낼 수 있는 상한)
+```
+
+`retrievable_count`는 `min(candidate_count, 100)`입니다. 이 값 기준으로 페이지를
+계산하면 항상 유효한 요청만 만들 수 있습니다.
 
 ---
 
@@ -201,7 +213,8 @@ top_k=4, offset=0  +  top_k=4, offset=4   ==   top_k=8, offset=0
 | `translated_text` | 번역 결과. 영어 질의나 용어 교정을 거친 경우 `null` |
 | `image_weight` · `text_weight` | 결합 검색에 적용된 가중치 |
 | `top_k` · `offset` | 요청한 페이지 |
-| `candidate_count` | 필터를 통과한 전체 개수 |
+| `candidate_count` | 필터를 통과한 전체 개수 (페이지 계산에는 쓰지 않음, 4절 참고) |
+| `retrievable_count` | 실제로 페이지를 넘겨 꺼낼 수 있는 상한. `min(candidate_count, 100)` |
 | `elapsed_ms` · `search_elapsed_ms` | 요청 전체 / 검색 구간 소요 시간 |
 | `results` | 결과 목록 |
 

@@ -187,13 +187,20 @@ POST /search/text
   "top_k": 10,
   "offset": 0,
   "candidate_count": 500,
+  "retrievable_count": 100,
   "elapsed_ms": 82.588,
   "search_elapsed_ms": 80.78,
   "results": [ { "asset_id": "...", "score": 0.71, "...": "..." } ]
 }
 ```
 
-- `candidate_count`는 필터를 통과한 **전체 개수**입니다. 페이징 UI의 총량으로 씁니다.
+- `candidate_count`는 필터를 통과한 **전체 개수**입니다. `offset`/`top_k`로 실제
+  꺼낼 수 있는 개수와는 다릅니다 — 검색 서비스가 한 번에 매기는 순위 상한이
+  100건이라, `candidate_count`가 100을 넘어도 그 이상은 조회할 수 없습니다.
+- **페이지네이션 UI는 `candidate_count`가 아니라 `retrievable_count`
+  (`min(candidate_count, 100)`)로 마지막 페이지를 계산해야 합니다.**
+  `candidate_count`로 계산하면 100건을 넘는 순간부터 `offset + top_k > 100`
+  요청을 만들어 400을 받습니다.
 - `elapsed_ms`는 요청 전체, `search_elapsed_ms`는 검색 구간 시간입니다.
 - 결과 항목에는 `image_url`, `result_text`, `caption_ko/en`, `category`,
   `subcategory`, `colors`, `materials`, `elements`, `shape_tags`, `grade`,

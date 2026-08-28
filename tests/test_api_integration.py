@@ -20,6 +20,11 @@ def test_real_model_search_endpoints():
         assert health.json()["model"]["pretrained"] == "laion2b_s34b_b88k"
         assert health.json()["model"]["integration_status"] == "final_adapter"
         assert health.json()["service_version"] == "final-adapter-v1"
+        # 테스트 환경은 FWS_PRELOAD_TRANSLATION_MODEL을 켜지 않으므로 꺼진 채로
+        # 응답해야 한다. /health가 응답한다는 사실 자체가 lifespan startup이
+        # 끝나 검색이 가능한 상태라는 뜻이고, 이 값은 번역 모델을 실제로
+        # 미리 태웠는지만 별도로 알려준다.
+        assert health.json()["translation_preloaded"] is False
 
         inventory = client.get("/filters")
         assert inventory.status_code == 200

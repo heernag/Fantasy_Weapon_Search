@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from app.query_terms import rewrite_korean_query
-from app.schemas import SearchFilters
+from app.schemas import MAX_RANKED_RESULTS, SearchFilters
 
 
 class NoSearchResults(ValueError):
@@ -174,6 +174,9 @@ class OfficialSearchAdapter:
             # 필터를 통과한 전체 개수다. 페이지 길이로 대체하면 프론트엔드가
             # 마지막 페이지를 잘못 계산하므로 검색 서비스가 준 값만 쓴다.
             "candidate_count": payload["candidate_count"],
+            # 실제로 offset+top_k로 꺼낼 수 있는 상한. candidate_count가 이보다
+            # 커도 그 이상은 400이므로, 마지막 페이지는 이 값 기준으로 계산해야 한다.
+            "retrievable_count": min(payload["candidate_count"], MAX_RANKED_RESULTS),
             "elapsed_ms": elapsed_ms,
             "search_elapsed_ms": search_elapsed_ms,
             "results": results,

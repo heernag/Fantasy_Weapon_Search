@@ -215,6 +215,29 @@ def create_search_service(settings):
     )
 
 
+def preload_translation_service(official_service, settings) -> bool:
+    """설정에 따라 요청을 받기 전에 한국어 번역 모델을 미리 태운다.
+
+    번역 모델(`src/retrieval/search_service.py`의 `_load_translation_model`)은
+    지연 로딩이고 lock이 없다. 첫 한국어 검색이 모델을 내려받고 초기화하는
+    수 초~수십 초를 그대로 사용자에게 노출하고, 그 사이 동시에 들어온 한국어
+    요청은 로딩을 중복 시도할 수 있다.
+
+    이 함수는 `search_text`라는 공개 메서드를 한 번 호출해 로딩을 강제한다.
+    ASGI lifespan은 startup이 끝나야 요청을 받기 시작하므로, 여기서 동기적으로
+    실행하면 실제 트래픽이 도달하는 시점에는 이미 로딩이 끝나 있다. 로딩이
+    끝난 뒤에는 지연 로딩의 확인-후-로드 검사가 즉시 반환되므로, 동시 요청
+    경합 창도 함께 사라진다. `src/retrieval/search_service.py`는 고치지 않았다.
+
+    기본값은 꺼져 있다(`FWS_PRELOAD_TRANSLATION_MODEL`). 로컬 개발·테스트에서
+    서버(TestClient 포함)를 반복 기동할 때마다 이 비용을 물지 않기 위해서다.
+    """
+    if not settings.preload_translation_model:
+        return False
+    official_service.search_text("판타지 무기 검색 서비스 준비 확인용 문장입니다.", top_k=1)
+    return True
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """요청마다 재로딩하지 않도록 무거운 모델과 인덱스를 시작 시 한 번 준비한다."""
@@ -229,6 +252,9 @@ async def lifespan(app: FastAPI):
     )
     app.state.service_manifest = service_manifest
     app.state.image_files = image_files(settings, repository)
+    # 매니페스트 검증(빠른 무결성 확인)이 끝난 뒤에 번역 모델 로딩(느릴 수 있음)을
+    # 시도한다. 손상된 번들을 굳이 다운로드가 끝난 뒤에야 알아채지 않기 위해서다.
+    app.state.translation_preloaded = preload_translation_service(official_service, settings)
     yield
 
 
@@ -305,6 +331,11 @@ def health(request: Request):
             "integration_status": "final_adapter",
         },
         "service_version": manifest["service_version"],
+        # lifespan startup이 끝나야 요청을 받으므로 이 엔드포인트가 응답한다는
+        # 것 자체가 검색 가능한 상태라는 뜻이다. 이 값은 번역 모델을 실제로
+        # 미리 태웠는지(FWS_PRELOAD_TRANSLATION_MODEL)만 별도로 알려준다 —
+        # 꺼져 있으면 서비스는 정상이되 첫 한국어 검색만 느릴 수 있다.
+        "translation_preloaded": request.app.state.translation_preloaded,
     }
 
 

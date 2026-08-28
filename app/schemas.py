@@ -223,6 +223,11 @@ class SearchResponse(BaseModel):
     top_k: int
     offset: int
     candidate_count: int
+    # 검색 서비스가 실제로 순위를 매기는 상한(MAX_RANKED_RESULTS)까지로 자른 값.
+    # candidate_count는 필터를 통과한 전체 개수라 offset+top_k 상한과는 별개다.
+    # 프론트엔드는 이 값으로 마지막 페이지를 계산해야 candidate_count가 100을
+    # 넘을 때 offset+top_k>100 요청을 만들어 400을 받는 상황을 피할 수 있다.
+    retrievable_count: int
     elapsed_ms: float
     search_elapsed_ms: float
     results: list[SearchHit]

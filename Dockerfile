@@ -13,7 +13,8 @@ FROM python:3.11-slim
 # 환경변수 방식으로 되돌릴 수 있다.
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    FWS_DEVICE=cpu
+    FWS_DEVICE=cpu \
+    FWS_PRELOAD_TRANSLATION_MODEL=true
 
 WORKDIR /app
 COPY requirements.txt .
