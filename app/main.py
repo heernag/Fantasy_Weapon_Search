@@ -3,6 +3,7 @@
 from contextlib import asynccontextmanager
 import hashlib
 import inspect
+import json
 import time
 from io import BytesIO
 from pathlib import Path
@@ -52,6 +53,22 @@ def csv_values(value: str | None) -> list[str]:
 # `normalize_legacy_names`, 그리고 이를 쓰는 테스트를 함께 지우면 된다.
 # 폐기하면 이 이름으로 보내던 요청은 400을 받는다.
 LEGACY_FILTER_NAMES = ("categories", "styles")
+
+# 관리자 대시보드용 평가 지표. frontend 브랜치(backend/app/main.py)에서 이식했다
+# (2026-08-28, 동윤 확인). 응답 형식은 원본과 동일하게 유지한다.
+#
+# 프런트엔드에 공개할 평가 요약은 고정된 파일만 허용한다. 파일명을 요청값으로
+# 받으면 data/evaluation 밖의 파일을 노출할 위험이 있어 목록을 코드에 둔다.
+EVALUATION_SUMMARY_FILES = {
+    "text_search": "evaluation_summary.json",
+    "multimodal_test": "multimodal_evaluation_summary.json",
+    "multimodal_validation": "multimodal_validation_evaluation_summary.json",
+    "illustration_test": "illustration_evaluation_summary.json",
+}
+EVALUATION_RESULT_FILES = {
+    "multimodal_test": "multimodal_test_results_adapter_en.json",
+    "multimodal_validation": "multimodal_validation_results_adapter_en.json",
+}
 
 
 def build_filters(**values) -> SearchFilters:
@@ -262,6 +279,113 @@ settings = get_settings()
 app = FastAPI(title="Fantasy Weapon Search API", version="1.0.0", lifespan=lifespan)
 
 
+def load_evaluation_summaries() -> dict[str, dict]:
+    """프런트엔드용 평가 요약 JSON을 고정된 목록에서 읽는다."""
+    evaluation_root = settings.absolute(Path("data/evaluation"))
+    try:
+        return {
+            key: json.loads((evaluation_root / filename).read_text(encoding="utf-8"))
+            for key, filename in EVALUATION_SUMMARY_FILES.items()
+        }
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RuntimeError("평가 요약 데이터를 읽을 수 없습니다") from exc
+
+
+def load_evaluation_metrics() -> dict:
+    """실측된 결과 파일에서 품질 지표만 공개한다.
+
+    nDCG, 지연 시간, 무결과율, 실패 쿼리는 현재 결과 파일에 없으므로 null/빈 목록으로
+    반환한다. 대시보드가 추정값을 실제 측정값처럼 표시하지 않게 하는 계약이다.
+    """
+    try:
+        result_root = settings.absolute(Path("results"))
+        quality_sets = []
+        result_documents = {}
+        for key, filename in EVALUATION_RESULT_FILES.items():
+            document = json.loads((result_root / filename).read_text(encoding="utf-8"))
+            result_documents[key] = document
+            selected_weight = document.get("selected_weight", document.get("fixed_weight", {}))
+            chosen_weight = selected_weight.get("image_weight")
+            row = next((item for item in document.get("weight_results", []) if item.get("image_weight") == chosen_weight), None)
+            if row is None:
+                row = document.get("weight_results", [None])[0]
+            overall = (row or {}).get("overall", document.get("overall", {})) if isinstance(row, dict) else document.get("overall", {})
+            quality_sets.append({
+                "dataset": key,
+                "query_count": overall.get("query_count"),
+                "recall_at_1": overall.get("Recall@1"),
+                "recall_at_5": overall.get("Recall@5"),
+                "recall_at_10": overall.get("Recall@10"),
+                "mrr": overall.get("MRR"),
+                "ndcg": overall.get("nDCG@10"),
+                "map": overall.get("mAP"),
+                "image_weight": chosen_weight,
+            })
+        validation = next((item for item in quality_sets if item["dataset"] == "multimodal_validation"), {})
+        validation_document = result_documents.get("multimodal_validation", {})
+        validation_weight = validation_document.get("selected_weight", {}).get("image_weight")
+        validation_rows = validation_document.get("weight_results", [])
+        selected_validation_row = next((row for row in validation_rows if row.get("image_weight") == validation_weight), validation_rows[0] if validation_rows else {})
+
+        def mode_payload(key, label, row):
+            overall = row.get("overall", {})
+            return {
+                "key": key,
+                "label": label,
+                "image_weight": row.get("image_weight"),
+                "text_weight": row.get("text_weight"),
+                "query_count": overall.get("query_count"),
+                "recall": {"1": overall.get("Recall@1"), "5": overall.get("Recall@5"), "10": overall.get("Recall@10")},
+                "metrics": {"map": overall.get("mAP"), "recall_at_10": overall.get("Recall@10"), "mrr": overall.get("MRR"), "ndcg_at_10": overall.get("nDCG@10")},
+            }
+
+        mode_rows = {
+            "image": next((row for row in validation_rows if row.get("image_weight") == 1.0), {}),
+            "text": next((row for row in validation_rows if row.get("image_weight") == 0.0), {}),
+            "multimodal": selected_validation_row,
+        }
+        selected_log = result_root / "multimodal_validation_results_adapter_en_query_logs.jsonl"
+        logs = [json.loads(line) for line in selected_log.read_text(encoding="utf-8").splitlines() if line.strip()] if selected_log.exists() else []
+        query_path = settings.absolute(Path("data/evaluation/multimodal_validation_queries.jsonl"))
+        dimensions = {record["query_id"]: record for record in (json.loads(row) for row in query_path.read_text(encoding="utf-8").splitlines() if row.strip())}
+        def grouped(field):
+            groups = {}
+            for log in logs:
+                value = dimensions.get(log["query_id"], {}).get(field)
+                for item in value if isinstance(value, list) else [value]:
+                    if item is not None: groups.setdefault(item, []).append(log)
+            return {key: {"query_count": len(rows), "recall_at_10": sum(row["first_relevant_rank"] is not None and row["first_relevant_rank"] <= 10 for row in rows) / len(rows), "mrr": sum(1 / row["first_relevant_rank"] if row["first_relevant_rank"] else 0 for row in rows) / len(rows)} for key, rows in groups.items()}
+        latencies = sorted(row["search_elapsed_ms"] for row in logs)
+        failures = [{"query_id": row["query_id"], "query": row["query_text"], "query_type": row["query_type"], "top_results": row["top_results"], "relevant_asset_ids": row["relevant_asset_ids"], "first_relevant_rank": row["first_relevant_rank"], "reason": "no relevant asset in ranked results"} for row in logs if not row["success"]]
+        history_path = result_root / "evaluation_history.jsonl"
+        history_rows = [json.loads(line) for line in history_path.read_text(encoding="utf-8").splitlines() if line.strip()] if history_path.exists() else []
+        # 추이 그래프는 날짜 단위 비교이므로, 과거에 중복 저장된 행이 있어도
+        # 같은 날짜의 가장 최근 멀티모달 검증 결과만 반환한다.
+        history_by_date = {
+            row["date"]: row
+            for row in history_rows
+            if row.get("dataset") == "multimodal_validation" and row.get("date")
+        }
+        history = [history_by_date[key] for key in sorted(history_by_date)]
+        return {
+            "quality_sets": quality_sets,
+            "zero_result_rate": sum(row["zero_result"] for row in logs) / len(logs) if logs else None,
+            "average_latency_ms": sum(latencies) / len(latencies) if latencies else None,
+            "p95_latency_ms": latencies[min(len(latencies) - 1, int(len(latencies) * .95))] if latencies else None,
+            "failed_queries": failures,
+            "trend": history,
+            "mode_comparison": [
+                mode_payload("image", "이미지 전용", mode_rows["image"]),
+                mode_payload("text", "텍스트 전용", mode_rows["text"]),
+                mode_payload("multimodal", "이미지 + 텍스트", mode_rows["multimodal"]),
+            ],
+            "by_query_type": selected_validation_row.get("by_query_type", {}),
+            "by_dimension": {"weapon_category": grouped("weapon_category"), "primary_color": grouped("target_primary_color"), "elements": grouped("target_elements")},
+        }
+    except (OSError, json.JSONDecodeError, IndexError) as exc:
+        raise RuntimeError("평가 지표 데이터를 읽을 수 없습니다") from exc
+
+
 def configure_cors(target_app: FastAPI, origins: list[str]) -> None:
     if not origins:
         return
@@ -348,6 +472,24 @@ def filters(request: Request):
 def filter_coverage(request: Request):
     """필드별로 값이 채워진 에셋 수. `elements`처럼 일부만 태깅된 속성을 UI가 알린다."""
     return request.app.state.repository.filter_coverage()
+
+
+@app.get("/evaluation/summary")
+def evaluation_summary():
+    """텍스트·멀티모달·일러스트 평가의 요약 JSON을 한 번에 반환한다."""
+    try:
+        return load_evaluation_summaries()
+    except RuntimeError as exc:
+        raise HTTPException(500, str(exc)) from exc
+
+
+@app.get("/evaluation/metrics")
+def evaluation_metrics():
+    """대시보드용 검색 품질·운영 지표를 반환한다."""
+    try:
+        return load_evaluation_metrics()
+    except RuntimeError as exc:
+        raise HTTPException(500, str(exc)) from exc
 
 
 @app.get("/assets/{asset_id}")
