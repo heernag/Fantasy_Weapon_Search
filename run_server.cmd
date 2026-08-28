@@ -12,6 +12,12 @@ echo  Server URL : http://127.0.0.1:8000        (opens the API docs)
 echo  Swagger UI : http://127.0.0.1:8000/docs
 echo  Health     : http://127.0.0.1:8000/health
 echo  Stop server: Press Ctrl+C
+echo ------------------------------------------------------------
+echo  This launcher preloads the Korean translation model before
+echo  the server accepts requests (first Korean search stays fast).
+echo  Startup takes a few seconds longer for this reason.
+echo  Confirm with: curl http://127.0.0.1:8000/health
+echo  Look for "translation_preloaded": true in the response.
 echo ============================================================
 echo.
 

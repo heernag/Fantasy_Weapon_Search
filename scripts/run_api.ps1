@@ -20,6 +20,14 @@ if (-not $env:FWS_MODEL_CACHE) {
     $env:FWS_MODEL_CACHE = Join-Path $projectRoot ".cache\openclip"
 }
 
+# 이 스크립트는 시연·로컬 실행용 진입점이다. 켜두면 서버가 요청을 받기 전에
+# 한국어 번역 모델을 미리 로딩해, 첫 한국어 검색이 느려지는 것을 막는다
+# (app/main.py의 preload_translation_service, 기본값은 꺼짐). 이미 환경변수로
+# 지정했다면 그 값을 존중한다.
+if (-not $env:FWS_PRELOAD_TRANSLATION_MODEL) {
+    $env:FWS_PRELOAD_TRANSLATION_MODEL = "true"
+}
+
 # uvicorn의 app.main import도 프로젝트 루트에서 수행되도록 위치를 잠시 바꾼다.
 Push-Location $projectRoot
 try {
