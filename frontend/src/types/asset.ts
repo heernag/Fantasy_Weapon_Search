@@ -68,6 +68,7 @@ export type ApiSearchResponse = {
   top_k: number;
   offset: number;
   candidate_count: number;
+  retrievable_count: number;
   elapsed_ms: number;
   search_elapsed_ms: number;
   results: ApiSearchHit[];
@@ -114,6 +115,7 @@ export type SearchRequest = {
 export type SearchResponse = {
   results: Asset[];
   totalCount: number;
+  retrievableCount: number;
   elapsedMs: number;
   searchElapsedMs: number;
   searchType: string;

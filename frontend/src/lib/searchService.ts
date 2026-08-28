@@ -144,6 +144,9 @@ export async function searchAssets(request: SearchRequest, signal?: AbortSignal)
   return {
     results: raw.results.map(assetFromHit),
     totalCount: raw.candidate_count,
+    // 마지막 페이지와 다음 버튼은 서버가 보장하는 실제 조회 가능 범위를 사용한다.
+    // 구형 서버에 잠시 연결된 경우에도 고정값을 추정하지 않고 현재 응답 결과만 쓴다.
+    retrievableCount: Number.isInteger(raw.retrievable_count) ? Math.max(0, raw.retrievable_count) : raw.results.length,
     elapsedMs: Math.round(raw.elapsed_ms),
     searchElapsedMs: Math.round(raw.search_elapsed_ms),
     searchType: raw.search_type,
