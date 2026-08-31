@@ -2,9 +2,9 @@ import { categories, filterOptions, subcategoriesByCategory } from "@/src/lib/la
 import type { FilterKey } from "@/src/types/asset";
 
 /**
- * 공개 검색 화면에 표시할 필터의 승인 목록입니다.
- * 이 파일은 기획 확정 필터 사양의 단일 기준점입니다. 백엔드의 추가 메타데이터 값은
- * 검색에는 남아 있어도, 여기 등록하지 않는 한 UI에 노출하지 않습니다.
+ * 공개 검색 화면에 표시할 확정 필터 목록입니다.
+ * 백엔드의 추가 메타데이터 값은 검색에 남아 있어도, 여기 등록하지 않으면
+ * UI에 노출하지 않습니다. 예: rendered_icon은 시각 스타일 선택지에 노출하지 않습니다.
  */
 export const visibleFilterGroups = ["category", "grade", "primary_color", "elements", "shape_tags", "materials", "visual_style"] as const;
 

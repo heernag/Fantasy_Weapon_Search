@@ -10,7 +10,6 @@ import { fetchFilterCatalog, searchAssets } from "@/src/lib/searchService";
 import { emptyFilters, listFilterKeys, type Asset, type FilterCatalog, type FilterKey, type SearchFilters, type SearchRequest, type SearchResponse } from "@/src/types/asset";
 
 const resultPageSize = 24;
-const maximumRankedResults = 100;
 
 function selectedFilterCount(filters: SearchFilters) {
   return Object.values(filters).reduce((count, value) => count + (Array.isArray(value) ? value.length : Number(Boolean(value))), 0);
@@ -83,7 +82,9 @@ export default function HomePage() {
 
   const runSearch = async (next: Partial<SearchRequest> = {}, showValidationError = true) => {
     const requestedOffset = next.offset ?? 0;
-    const request: SearchRequest = { query, image, imageWeight, filters, offset: requestedOffset, topK: Math.min(resultPageSize, maximumRankedResults - requestedOffset), ...next };
+    const knownRetrievableCount = response?.retrievableCount;
+    const remainingResults = knownRetrievableCount === undefined ? resultPageSize : Math.max(0, knownRetrievableCount - requestedOffset);
+    const request: SearchRequest = { query, image, imageWeight, filters, offset: requestedOffset, topK: next.topK ?? Math.max(1, Math.min(resultPageSize, remainingResults)), ...next };
     if (!request.query.trim() && !request.image) {
       if (showValidationError) setError(locale === "ko" ? "검색어를 입력하거나 참고 이미지를 선택해 주세요." : "Enter a search query or reference image.");
       return;
@@ -203,7 +204,7 @@ export default function HomePage() {
     setFilterCollapseVersion((version) => version + 1);
   };
 
-  const rankedResultCount = response ? Math.min(response.totalCount, maximumRankedResults) : 0;
+  const rankedResultCount = response?.retrievableCount ?? 0;
   const canGoPrevious = Boolean(response && response.offset > 0 && !isLoading);
   const canGoNext = Boolean(response && !isLoading && response.offset + response.results.length < rankedResultCount);
   const hasNoResultResponse = hasSearched && !isLoading && !response;
