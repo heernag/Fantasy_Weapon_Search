@@ -26,7 +26,7 @@
     },
     "metadata": {
       "path": "data/metadata/final_search_assets.jsonl",
-      "sha256": "6f6ce2eae6a2c79e8ef4f87c6eecff2a7b1c7c9d015e879aea4a78f6bc1cdea2"
+      "sha256": "4659081e3658da8a4efb19473dcea7d2242f3f0d19e851a39280c285cbd40500"
     },
     "index": {
       "path": "storage/indexes/weapons.faiss",
