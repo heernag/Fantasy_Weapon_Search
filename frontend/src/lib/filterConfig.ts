@@ -3,8 +3,8 @@ import type { FilterKey } from "@/src/types/asset";
 
 /**
  * 공개 검색 화면에 표시할 확정 필터 목록입니다.
- * 백엔드의 추가 메타데이터 값은 검색에 남아 있어도, 여기 등록하지 않으면
- * UI에 노출하지 않습니다. 예: rendered_icon은 시각 스타일 선택지에 노출하지 않습니다.
+ * 백엔드의 추가 메타데이터 값은 검색에 남아 있어도, 여기 등록한 값만
+ * UI에 노출합니다. 노출 여부와 표시명은 이 파일과 labels.ts에서 관리합니다.
  */
 export const visibleFilterGroups = ["category", "grade", "primary_color", "elements", "shape_tags", "materials", "visual_style"] as const;
 

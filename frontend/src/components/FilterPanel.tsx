@@ -5,15 +5,22 @@ import { listFilterKeys, type FilterCatalog, type FilterKey, type SearchFilters 
 
 const longGroups = new Set<FilterKey>(["primary_color", "shape_tags"]);
 const count = (filters: SearchFilters) => Object.values(filters).reduce((total, value) => total + (Array.isArray(value) ? value.length : Number(Boolean(value))), 0);
-const categoryIcons: Record<string, string> = { sword: "⚔", dagger: "🗡", axe: "🪓", bow: "🏹", shield: "🛡", staff: "✦", gun: "◉", spear: "♜", scythe: "☾", mace: "✹", hammer: "🔨", chakram: "◌", shuriken: "✥", crossbow: "⌁", arrow: "➶" };
+const categoryIcons: Record<string, string> = { sword: "⚔", dagger: "🗡", axe: "🪓", bow: "🏹", shield: "🛡", staff: "✦", gun: "⌖", spear: "↟", scythe: "☾", mace: "✹", hammer: "🔨", chakram: "◌", shuriken: "✥", crossbow: "╫", arrow: "➶" };
 const groupIcons: Partial<Record<FilterKey, string>> = { category: "⚔", subcategory: "⌘", grade: "✦", primary_color: "●", elements: "⚡", shape_tags: "◇", materials: "◈", visual_style: "▣" };
 const elementIcons: Record<string, string> = { dark: "◐", fire: "🔥", holy: "✦", ice: "❄", lightning: "⚡", nature: "🌿", poison: "☠", water: "💧", wind: "〰" };
-const materialIcons: Record<string, string> = { bone: "🦴", bronze: "◉", chain: "⛓", cloth: "▧", crystal: "💎", gold: "✦", leather: "◒", obsidian: "◆", silver: "◇", steel: "◈", stone: "🪨", wood: "🪵" };
+const materialIcons: Record<string, string> = { bone: "⊹", bronze: "●", chain: "⌇", cloth: "▧", crystal: "◇", gold: "✦", leather: "◒", obsidian: "◆", silver: "○", steel: "▰", stone: "⬟", wood: "≋" };
+const gradeIcons: Record<string, string> = { common: "◇", legendary: "✦" };
+const shapeIcons: Record<string, string> = { one_handed: "Ⅰ", bladed: "◢", straight_blade: "│", two_handed: "Ⅱ", symmetrical: "◈", pointed_bottom: "▽", rounded_edges: "◯", shield_shaped: "⬟", pointed_top: "△", ornate: "✧", double_edged: "⇋", broad_blade: "▰", long_blade: "▯", dagger: "◢", single_blade: "◿", longsword: "┃", round: "○", curved_blade: "◜", enchanted: "✦", long_handle: "╏", compact_blade: "▪", crystal_detail: "◇", glowing: "☼", short_blade: "▭", layered: "≡", double_blade: "✣" };
+const visualStyleIcons: Record<string, string> = { pixel_art: "▦", illustration: "✎", rendered_icon: "▣" };
 
-function OptionAdornment({ group, value }: { group: FilterKey; value: string }) {
+function OptionAdornment({ category, group, value }: { category: string | null; group: FilterKey; value: string }) {
   if (group === "category") return <span className="filter-option-icon" aria-hidden="true">{categoryIcons[value] ?? "◇"}</span>;
+  if (group === "subcategory") return <span className="filter-option-icon" aria-hidden="true">{categoryIcons[category ?? ""] ?? "◇"}</span>;
+  if (group === "grade") return <span className="filter-option-icon" aria-hidden="true">{gradeIcons[value] ?? "◇"}</span>;
   if (group === "elements") return <span className="filter-option-icon" aria-hidden="true">{elementIcons[value] ?? "✧"}</span>;
+  if (group === "shape_tags") return <span className="filter-option-icon" aria-hidden="true">{shapeIcons[value] ?? "◇"}</span>;
   if (group === "materials") return <span className="filter-option-icon" aria-hidden="true">{materialIcons[value] ?? "◈"}</span>;
+  if (group === "visual_style") return <span className="filter-option-icon" aria-hidden="true">{visualStyleIcons[value] ?? "▣"}</span>;
   if (group === "primary_color") return <i className={`color-swatch color-${value}`} aria-hidden="true" />;
   return null;
 }
@@ -61,7 +68,7 @@ export function FilterPanel({ catalog, collapseVersion, error, filters, isLoadin
       const visibleValues = selectedOptions.length === values.length ? values : [...selectedOptions, ...values.filter(({ value }) => !selectedValues.includes(value))];
       return <details key={key} className={`filter-group filter-group-${key} ${longGroups.has(key) ? "filter-group-long" : ""}`} open={expandedGroups.has(key)} onToggle={(event) => { const isOpen = event.currentTarget.open; setExpandedGroups((current) => { const next = new Set(current); if (isOpen) next.add(key); else next.delete(key); return next; }); }}><summary><span className="filter-group-title"><FilterGroupIcon group={key} /><span>{filterLabels[locale][key]}</span></span><span className="filter-group-meta">{selectedValues.length > 0 ? selectedValues.length : values.length}</span></summary><div className="filter-options">{visibleValues.map(({ value }) => {
         const active = Array.isArray(selected) ? selected.includes(value) : selected === value;
-        return <label key={value} className={active ? "filter-option is-selected" : "filter-option"}><input type={isList ? "checkbox" : "radio"} name={isList ? undefined : key} checked={active} onClick={(event) => { if (!isList && active) { event.preventDefault(); applyChange(key, value); } }} onChange={() => applyChange(key, value)} /><span><OptionAdornment group={key} value={value} /><b>{displayValue(value, locale)}</b><small>{counts.get(value) ?? 0}</small></span></label>;
+        return <label key={value} className={active ? "filter-option is-selected" : "filter-option"}><input type={isList ? "checkbox" : "radio"} name={isList ? undefined : key} checked={active} onClick={(event) => { if (!isList && active) { event.preventDefault(); applyChange(key, value); } }} onChange={() => applyChange(key, value)} /><span><OptionAdornment category={filters.category} group={key} value={value} /><b>{displayValue(value, locale)}</b><small>{counts.get(value) ?? 0}</small></span></label>;
       })}</div></details>;
     })}</div>}
   </aside>;
